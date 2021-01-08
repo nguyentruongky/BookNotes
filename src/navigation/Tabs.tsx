@@ -44,9 +44,6 @@ export default function Tabs() {
         },
       })}>
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
-      <Tab.Screen name="SearchScreen" component={SearchScreen} />
-      <Tab.Screen name="MyTicketScreen" component={MyTicketScreen} />
-      <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} />
       <Tab.Screen name="ProfileScreen" component={ProfileScreen} />
     </Tab.Navigator>
   );

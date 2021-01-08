@@ -1,59 +1,88 @@
 import React from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Dimensions, TextInput} from 'react-native';
 import {Weight, getFont} from '@fonts';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import {Button, Icon} from 'react-native-elements';
+import QuoteCell from './QuoteCell';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
+  const {width: screenWidth, height: screenHeight} = Dimensions.get('screen');
   return (
-    <View style={{flex: 1, backgroundColor: 'rgb(258,86,63)', paddingTop: 16}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'rgb(258,86,63)'}}>
+      <TopBar />
       <QuoteCell />
       <QuoteCell />
       <QuoteCell />
       <QuoteCell />
-    </View>
+
+      <View
+        style={{
+          position: 'absolute',
+          top: screenHeight - 180,
+          left: screenWidth - 82,
+        }}>
+        <Button
+          type="clear"
+          icon={<Ionicons name="add" color="white" size={36} />}
+          titleStyle={{color: 'black', ...getFont(Weight.medium, 16)}}
+          style={{
+            backgroundColor: 'green',
+            height: 66,
+            width: 66,
+            borderRadius: 33,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
 
-function QuoteCell() {
-  const iconSize = 24;
+function TopBar() {
   return (
-    <SafeAreaView
+    <View
       style={{
+        height: 36,
+        marginHorizontal: 16,
         flexDirection: 'row',
+        alignItems: 'center',
       }}>
-      <View
-        style={{
-          flex: 1,
-          marginTop: 16,
-          marginLeft: 16,
-          marginRight: 16,
-          marginBottom: 16,
-          padding: 16,
-          borderRadius: 16,
-          backgroundColor: '#000000AA',
-        }}>
-        <Text style={{...getFont(Weight.bold, 15), color: 'white'}}>
-          You’ve gotta dance like there’s nobody watching,Love like you’ll never
-          be hurt,Sing like there’s nobody listening,And live like it’s heaven
-          on earth.
-        </Text>
-        <Text
-          style={{
-            ...getFont(Weight.regular, 12),
-            color: '#ffffffAA',
-            textAlign: 'right',
-            marginTop: 8,
-          }}>
-          Don't make me cry
-        </Text>
-      </View>
-      <FontAwesome
-        name="bookmark"
-        size={30}
-        color="#900"
-        style={{marginRight: 16, marginTop: 16}}
+      <SearchBar />
+      <Icon
+        name="filter"
+        type="foundation"
+        style={{marginLeft: 16}}
+        onPress={() => console.log('Filter pressed')}
       />
-    </SafeAreaView>
+    </View>
+  );
+}
+function SearchBar() {
+  return (
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#000000AA',
+        paddingLeft: 16,
+        borderRadius: 22,
+      }}>
+      <EvilIcons name="search" size={24} color="white" />
+      <TextInput
+        style={{
+          marginLeft: 8,
+          color: 'white',
+          ...getFont(Weight.semiBold, 15),
+          flex: 1,
+          height: 40,
+        }}
+        placeholder="Search by book title or content"
+        placeholderTextColor="white"
+      />
+    </View>
   );
 }
