@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "985710421935",
+    "project_id": "booknotes-45f0c",
+    "storage_bucket": "booknotes-45f0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985710421935:android:e801601f2d1b78c87e715a",
+        "android_client_info": {
+          "package_name": "dev.ky.booknotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985710421935-9ogc07enl1ko993bip30aktqab3ukmp8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.ky.booknotes",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "985710421935-sied52qh2sd1tflko4eb5ubfhoccu1ca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKRTu-007cRLnuNobc5x0rMKc4cq5pX8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985710421935-sied52qh2sd1tflko4eb5ubfhoccu1ca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

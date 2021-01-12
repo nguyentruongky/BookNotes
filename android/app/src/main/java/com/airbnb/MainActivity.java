@@ -1,4 +1,4 @@
-package com.BookNotes;
+package dev.ky.booknotes;
 
 import com.facebook.react.ReactActivity;
 

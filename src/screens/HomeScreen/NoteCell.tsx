@@ -4,11 +4,16 @@ import {Weight, getFont} from '@fonts';
 import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {Button} from 'react-native-elements';
+import Note from '@src/models/Note';
 
-export default function QuoteCell() {
+export default function NoteCell({data}) {
+  const note = data as Note;
+  if (note === undefined) {
+    return <View />;
+  }
   const refRBSheet = useRef();
 
   function onLongPress() {
@@ -28,11 +33,12 @@ export default function QuoteCell() {
           borderRadius: 16,
           backgroundColor: '#000000AA',
         }}>
-        <TouchableOpacity onLongPress={onLongPress}>
+        <TouchableWithoutFeedback
+          delayLongPress={0}
+          delayPressIn={0}
+          onLongPress={onLongPress}>
           <Text style={{...getFont(Weight.bold, 15), color: 'white'}}>
-            You’ve gotta dance like there’s nobody watching,Love like you’ll
-            never be hurt,Sing like there’s nobody listening,And live like it’s
-            heaven on earth.
+            {note?.content}
           </Text>
           <Text
             style={{
@@ -41,9 +47,9 @@ export default function QuoteCell() {
               textAlign: 'right',
               marginTop: 8,
             }}>
-            Don't make me cry
+            {note?.book}
           </Text>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       </View>
       <FontAwesome
         name="bookmark"

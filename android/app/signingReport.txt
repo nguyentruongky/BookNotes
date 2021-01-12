@@ -1,0 +1,206 @@
+Variant: debugAndroidTest
+Config: debug
+Store: /Users/kynguyen/DevCenter/quoteShare/android/app/debug.keystore
+Alias: androiddebugkey
+MD5: 20:F4:61:48:B7:2D:8E:5E:5C:A2:3D:37:A4:F4:14:90
+SHA1: 5E:8F:16:06:2E:A3:CD:2C:4A:0D:54:78:76:BA:A6:F3:8C:AB:F6:25
+SHA-256: FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C
+Valid until: Wednesday, May 1, 2052
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /Users/kynguyen/DevCenter/quoteShare/android/app/debug.keystore
+Alias: androiddebugkey
+MD5: 20:F4:61:48:B7:2D:8E:5E:5C:A2:3D:37:A4:F4:14:90
+SHA1: 5E:8F:16:06:2E:A3:CD:2C:4A:0D:54:78:76:BA:A6:F3:8C:AB:F6:25
+SHA-256: FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C
+Valid until: Wednesday, May 1, 2052
+----------
+Variant: debug
+Config: debug
+Store: /Users/kynguyen/DevCenter/quoteShare/android/app/debug.keystore
+Alias: androiddebugkey
+MD5: 20:F4:61:48:B7:2D:8E:5E:5C:A2:3D:37:A4:F4:14:90
+SHA1: 5E:8F:16:06:2E:A3:CD:2C:4A:0D:54:78:76:BA:A6:F3:8C:AB:F6:25
+SHA-256: FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C
+Valid until: Wednesday, May 1, 2052
+----------
+Variant: release
+Config: debug
+Store: /Users/kynguyen/DevCenter/quoteShare/android/app/debug.keystore
+Alias: androiddebugkey
+MD5: 20:F4:61:48:B7:2D:8E:5E:5C:A2:3D:37:A4:F4:14:90
+SHA1: 5E:8F:16:06:2E:A3:CD:2C:4A:0D:54:78:76:BA:A6:F3:8C:AB:F6:25
+SHA-256: FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C
+Valid until: Wednesday, May 1, 2052
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /Users/kynguyen/DevCenter/quoteShare/android/app/debug.keystore
+Alias: androiddebugkey
+MD5: 20:F4:61:48:B7:2D:8E:5E:5C:A2:3D:37:A4:F4:14:90
+SHA1: 5E:8F:16:06:2E:A3:CD:2C:4A:0D:54:78:76:BA:A6:F3:8C:AB:F6:25
+SHA-256: FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C
+Valid until: Wednesday, May 1, 2052
+----------
+
+> Task :react-native-community_masked-view:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+Variant: releaseUnitTest
+Config: none
+----------
+
+> Task :react-native-firebase_app:signingReport
+Variant: releaseUnitTest
+Config: none
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+Variant: debugAndroidTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+
+> Task :react-native-gesture-handler:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+Variant: releaseUnitTest
+Config: none
+----------
+
+> Task :react-native-reanimated:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+Variant: releaseUnitTest
+Config: none
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+
+> Task :react-native-safe-area-context:signingReport
+Variant: releaseUnitTest
+Config: none
+----------
+Variant: debugAndroidTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+
+> Task :react-native-screens:signingReport
+Variant: debugUnitTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+Variant: releaseUnitTest
+Config: none
+----------
+Variant: debugAndroidTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+
+> Task :react-native-vector-icons:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
+Variant: releaseUnitTest
+Config: none
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /Users/kynguyen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 54:E2:43:82:59:1C:4B:09:27:90:2A:70:04:7E:81:C4
+SHA1: 31:6D:4E:CF:CD:04:4F:45:98:05:22:30:5E:7A:45:EA:17:EC:EB:95
+SHA-256: 03:67:68:64:6D:F8:7F:62:7A:72:C1:C7:2C:3C:38:F1:A9:3D:3C:1A:3A:00:38:56:08:E1:97:A8:98:40:89:27
+Valid until: Wednesday, December 28, 2050
+----------
