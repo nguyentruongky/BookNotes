@@ -1,12 +1,14 @@
 import React, {useRef} from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text, SafeAreaView, Image} from 'react-native';
 import {Weight, getFont} from '@fonts';
 import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {Button} from 'react-native-elements';
 import Note from '@src/models/Note';
 
 export default function NoteCell({data}) {
@@ -82,26 +84,36 @@ function BottomSheet() {
     <View>
       <Button
         title="Report"
-        type="clear"
-        icon={<Octicons name="report" size={16} style={{marginRight: 16}} />}
-        titleStyle={{color: 'black', ...getFont(Weight.medium, 16)}}
-        style={{marginLeft: 16, width: 120}}
-        buttonStyle={{
-          borderRadius: 6,
-          justifyContent: 'flex-start',
-        }}
+        icon={<Octicons name="report" size={20} style={{marginRight: 16}} />}
+        onPress={() => console.log('Report pressed')}
       />
 
       <Button
         title="Share"
-        type="clear"
         icon={
-          <EvilIcons name="share-apple" size={24} style={{marginRight: 10}} />
+          <EvilIcons name="share-apple" size={28} style={{marginRight: 8}} />
         }
-        titleStyle={{color: 'black', ...getFont(Weight.medium, 16)}}
-        style={{marginLeft: 14, width: 120}}
-        buttonStyle={{borderRadius: 6, justifyContent: 'flex-start'}}
+        onPress={() => console.log('Share pressed')}
       />
     </View>
+  );
+}
+
+function Button({title, icon, onPress}) {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View
+        style={{
+          flexDirection: 'row',
+          marginLeft: 16,
+          marginTop: 16,
+          alignItems: 'center',
+        }}>
+        {icon}
+        <Text style={{color: 'black', ...getFont(Weight.medium, 16)}}>
+          {title}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 }

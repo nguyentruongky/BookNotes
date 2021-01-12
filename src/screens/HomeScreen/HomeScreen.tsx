@@ -3,15 +3,21 @@ import {View, Dimensions, TextInput, FlatList, Keyboard} from 'react-native';
 import {Weight, getFont} from '@fonts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import {Button, Icon} from 'react-native-elements';
+import Foundation from 'react-native-vector-icons/Foundation';
 import NoteCell from './NoteCell';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useNotes from '@src/hooks/useNotes';
 import useSearch from '@src/hooks/useSearch';
 import TextButton from '@src/components/TextButton';
+import Screen from '@src/components/Screen';
+import AddNoteScreen from '../AddNoteScreen/AddNoteScreen';
+import VectorButton from '@src/components/VectorButton';
+
+const isPresentation = true;
+export const HomeScreenRoute = [Screen(AddNoteScreen, isPresentation)];
 
 let timeout: NodeJS.Timeout;
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   const {width: screenWidth, height: screenHeight} = Dimensions.get('screen');
   const [notes, setNotes] = useState([]);
   useEffect(() => {
@@ -40,7 +46,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'rgb(258,86,63)'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'rgb(238,238,238)'}}>
       <TopBar
         keyword={keyword}
         onKeywordChange={onKeywordChange}
@@ -58,17 +64,17 @@ export default function HomeScreen() {
           top: screenHeight - 180,
           left: screenWidth - 82,
         }}>
-        <Button
-          type="clear"
-          icon={<Ionicons name="add" color="white" size={36} />}
-          titleStyle={{color: 'black', ...getFont(Weight.medium, 16)}}
+        <VectorButton
+          Library={Ionicons}
+          color="white"
+          size={36}
+          name="add"
+          onPress={() => navigation.push('AddNoteScreen')}
           style={{
-            backgroundColor: 'green',
+            backgroundColor: '#000000AA',
             height: 66,
             width: 66,
             borderRadius: 33,
-            justifyContent: 'center',
-            alignItems: 'center',
           }}
         />
       </View>
@@ -91,10 +97,12 @@ function TopBar({keyword, onKeywordChange, cancelSearching}) {
         onKeywordChange={onKeywordChange}
         cancelSearching={cancelSearching}
       />
-      <Icon
+      <VectorButton
+        Library={Foundation}
         name="filter"
-        type="foundation"
-        style={{marginLeft: 16}}
+        size={30}
+        color="#000000AA"
+        style={{marginLeft: 16, height: 36}}
         onPress={() => console.log('Filter pressed')}
       />
     </View>

@@ -1,10 +1,6 @@
 import React from 'react';
 import {Platform} from 'react-native';
-import {
-  createStackNavigator,
-  TransitionPresets,
-  TransitionSpecs
-} from '@react-navigation/stack';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
@@ -23,7 +19,7 @@ export default function Screen(screen, isPresentation = false) {
       name={screen.name}
       component={screen}
       options={{
-        ...animation
+        ...animation,
       }}
     />
   );

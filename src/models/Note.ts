@@ -9,7 +9,7 @@ export default class Note {
 
   constructor(raw: any) {
     this.id = raw.id ?? uuidv4();
-    this.content = raw.content;
+    this.content = (raw.content as string).trim();
     this.author = raw.author;
     this.book = raw.book;
     this.bookmarkCount = raw.bookmarkCount;
