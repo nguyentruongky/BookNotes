@@ -6,8 +6,8 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import NoteCell from './NoteCell';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import useNotes from '@src/hooks/useNotes';
-import useSearch from '@src/hooks/useSearch';
+import fetchNotes from '@src/screens/AddNoteScreen/fetchNotesAPI';
+import searchNotes from '@src/screens/AddNoteScreen/searchNotesAPI';
 import TextButton from '@src/components/TextButton';
 import Screen from '@src/components/Screen';
 import AddNoteScreen from '../AddNoteScreen/AddNoteScreen';
@@ -34,7 +34,7 @@ export default function HomeScreen({navigation}) {
   }
   function initTimeout() {
     timeout = setTimeout(function () {
-      useSearch(searchTerm, (notes: []) => {
+      searchNotes(searchTerm, (notes: []) => {
         setNotes(notes);
       });
     }, 500);
@@ -42,7 +42,7 @@ export default function HomeScreen({navigation}) {
 
   function cancelSearching() {
     setKeyword('');
-    useNotes((notes: any[]) => setNotes(notes));
+    fetchNotes((notes: any[]) => setNotes(notes));
   }
 
   return (
@@ -151,7 +151,7 @@ function SearchBar({keyword, onKeywordChange, cancelSearching}) {
         <TextButton
           onPress={onPressCancel}
           title="Cancel"
-          textStyle={{color: 'white'}}
+          textStyle={{color: 'black'}}
           style={{marginLeft: 16}}
         />
       ) : null}

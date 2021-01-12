@@ -1,7 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import Note from '@src/models/Note';
 
-export default async function useSearch(
+export default async function searchNotes(
   keyword: string,
   onSuccess: ([]) => void,
 ) {
