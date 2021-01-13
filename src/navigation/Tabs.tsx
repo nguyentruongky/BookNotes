@@ -49,48 +49,6 @@ export default function Tabs() {
   );
 }
 
-function SearchScreen() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'green',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Text>Search Screen</Text>
-    </View>
-  );
-}
-
-function MyTicketScreen() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'red',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Text>My Ticket Screen</Text>
-    </View>
-  );
-}
-
-function FavoriteScreen() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'blue',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Text>Favorite Screen</Text>
-    </View>
-  );
-}
-
 function ProfileScreen() {
   return (
     <View

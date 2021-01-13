@@ -8,10 +8,12 @@ export default function MainButton({
   onPress,
   style = null,
   isLoading = false,
+  isEnabled = true,
 }) {
   return (
     <TouchableOpacity
       onPress={onPress}
+      disabled={!isEnabled}
       style={{
         height: 56,
         marginHorizontal: 20,
@@ -21,6 +23,7 @@ export default function MainButton({
         justifyContent: 'center',
         marginTop: 20,
         marginBottom: 20,
+        opacity: isEnabled ? 1 : 0.5,
         ...style,
       }}>
       {isLoading ? (

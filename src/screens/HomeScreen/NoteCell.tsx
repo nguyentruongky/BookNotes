@@ -11,7 +11,7 @@ import {
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Note from '@src/models/Note';
 
-export default function NoteCell({data}) {
+export default function NoteCell({data, onReport}) {
   const note = data as Note;
   if (note === undefined) {
     return <View />;
@@ -73,19 +73,24 @@ export default function NoteCell({data}) {
             backgroundColor: '#000',
           },
         }}>
-        <BottomSheet />
+        <BottomSheet
+          onReport={() => {
+            onReport();
+            refRBSheet.current.close();
+          }}
+        />
       </RBSheet>
     </SafeAreaView>
   );
 }
 
-function BottomSheet() {
+function BottomSheet({onReport}) {
   return (
     <View>
       <Button
         title="Report"
         icon={<Octicons name="report" size={20} style={{marginRight: 16}} />}
-        onPress={() => console.log('Report pressed')}
+        onPress={onReport}
       />
 
       <Button

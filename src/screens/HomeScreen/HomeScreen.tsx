@@ -6,12 +6,14 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import NoteCell from './NoteCell';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import fetchNotes from '@src/screens/AddNoteScreen/fetchNotesAPI';
-import searchNotes from '@src/screens/AddNoteScreen/searchNotesAPI';
+import fetchNotes from '@src/screens/HomeScreen/fetchNotesAPI';
+import searchNotes from '@src/screens/HomeScreen/searchNotesAPI';
 import TextButton from '@src/components/TextButton';
 import Screen from '@src/components/Screen';
 import AddNoteScreen from '../AddNoteScreen/AddNoteScreen';
 import VectorButton from '@src/components/VectorButton';
+import ReportPopup from '@src/components/ReportPopup';
+import Note from '@src/models/Note';
 
 const isPresentation = true;
 export const HomeScreenRoute = [Screen(AddNoteScreen, isPresentation)];
@@ -20,11 +22,13 @@ let timeout: NodeJS.Timeout;
 export default function HomeScreen({navigation}) {
   const {width: screenWidth, height: screenHeight} = Dimensions.get('screen');
   const [notes, setNotes] = useState([]);
+  const [selectedNote, setSelectedNote] = useState(null);
   useEffect(() => {
     // useNotes((notes: any[]) => setNotes(notes));
   }, []);
 
   const [keyword, setKeyword] = useState('');
+  const [reportVisible, setReportVisible] = useState(false);
   let searchTerm = '';
   function onKeywordChange(keyword: string) {
     setKeyword(keyword);
@@ -39,10 +43,17 @@ export default function HomeScreen({navigation}) {
       });
     }, 500);
   }
-
   function cancelSearching() {
     setKeyword('');
     fetchNotes((notes: any[]) => setNotes(notes));
+  }
+
+  function onPressFilter() {}
+
+  function onReport(note: Note) {
+    console.log('onReport::note::', note);
+    setSelectedNote(note);
+    setReportVisible(true);
   }
 
   return (
@@ -51,10 +62,13 @@ export default function HomeScreen({navigation}) {
         keyword={keyword}
         onKeywordChange={onKeywordChange}
         cancelSearching={cancelSearching}
+        onPressFilter={onPressFilter}
       />
       <FlatList
         data={notes}
-        renderItem={(item) => <NoteCell data={item.item} />}
+        renderItem={(item) => (
+          <NoteCell data={item.item} onReport={() => onReport(item.item)} />
+        )}
         keyExtractor={(item) => item.id}
       />
 
@@ -78,11 +92,17 @@ export default function HomeScreen({navigation}) {
           }}
         />
       </View>
+
+      <ReportPopup
+        note={selectedNote}
+        visible={reportVisible}
+        setVisible={setReportVisible}
+      />
     </SafeAreaView>
   );
 }
 
-function TopBar({keyword, onKeywordChange, cancelSearching}) {
+function TopBar({keyword, onKeywordChange, cancelSearching, onPressFilter}) {
   return (
     <View
       style={{
@@ -97,14 +117,15 @@ function TopBar({keyword, onKeywordChange, cancelSearching}) {
         onKeywordChange={onKeywordChange}
         cancelSearching={cancelSearching}
       />
-      <VectorButton
+
+      {/* <VectorButton
         Library={Foundation}
         name="filter"
         size={30}
         color="#000000AA"
         style={{marginLeft: 16, height: 36}}
-        onPress={() => console.log('Filter pressed')}
-      />
+        onPress={onPressFilter}
+      /> */}
     </View>
   );
 }
