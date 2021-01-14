@@ -1,17 +1,39 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import {Weight, getFont} from '@fonts';
 import Entypo from 'react-native-vector-icons/Entypo';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import LoginView from './LoginView';
+import auth from '@react-native-firebase/auth';
+import UserView from './UserView';
+import authCenter from '@src/utils/authCenter';
+import getUser from './getUser';
 
 export default function ProfileScreen() {
+  const [user, setUser] = useState(null);
+  function onAuthStateChanged(user) {
+    setUser(user);
+    authCenter().saveUserId(user.uid);
+
+    getUser(user.uid, (myAccount) => {
+      setUser(myAccount);
+      console.log('myAccount', myAccount);
+    });
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
+
   return (
     <View style={{flex: 1}}>
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <LoginView />
-      </View>
-      {/* <UserView /> */}
+      {user ? (
+        <UserView user={user} />
+      ) : (
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          <LoginView />
+        </View>
+      )}
       <AppInfo />
     </View>
   );

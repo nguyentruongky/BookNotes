@@ -23,12 +23,14 @@ import VectorButton from '@src/components/VectorButton';
 import ReportPopup from '@src/components/ReportPopup';
 import Note from '@src/models/Note';
 import {ScrollView} from 'react-native-gesture-handler';
+import User from '@src/models/User';
+import AsyncImage from '@src/components/AsyncImage';
 
-export default function UserView() {
+export default function UserView({user}) {
   return (
     <ScrollView style={{flex: 1}}>
       <SafeAreaView>
-        <PersonalView />
+        <PersonalView user={user} />
         <View style={{height: 1, backgroundColor: '#D3D3D3', marginTop: 32}} />
         <NumberView />
         <View style={{height: 1, backgroundColor: '#D3D3D3'}} />
@@ -38,7 +40,8 @@ export default function UserView() {
   );
 }
 
-function PersonalView() {
+function PersonalView({user}) {
+  const data = user as User;
   return (
     <View
       style={{
@@ -47,34 +50,33 @@ function PersonalView() {
         marginTop: 40,
         alignItems: 'center',
       }}>
-      <Image
+      <AsyncImage
         style={{
           height: 88,
-          aspectRatio: 1,
+          width: 88,
           borderRadius: 44,
           borderWidth: 2,
           borderColor: '#00000011',
         }}
-        source={{
-          uri:
-            'https://marriedwiki.com/uploads/2017/11/disneyabctelevisiongroupsummerpresstourzq6ju4zdxmjx.jpg',
-        }}
+        source={{uri: data?.image}}
+        placeholderColor="#b3e5fc"
       />
-      <View style={{marginLeft: 24}}>
+      <View style={{marginHorizontal: 24}}>
         <Text
           style={{
             ...getFont(Weight.bold, 30),
             color: '#000000DD',
           }}>
-          Catherine
+          {data?.userName}
         </Text>
         <Text
+          numberOfLines={1}
           style={{
-            ...getFont(Weight.medium, 17),
+            ...getFont(Weight.medium, 15),
             color: 'gray',
             marginTop: 6,
           }}>
-          catherine@gmail.com
+          {data?.email}
         </Text>
       </View>
     </View>

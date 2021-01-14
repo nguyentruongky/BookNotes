@@ -3,8 +3,44 @@ import {View, TouchableOpacity, Text} from 'react-native';
 import {Weight, getFont} from '@fonts';
 import Modal, {ModalContent, ScaleAnimation} from 'react-native-modals';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {AccessToken, LoginManager} from 'react-native-fbsdk';
+import auth from '@react-native-firebase/auth';
+import authCenter from '@src/utils/authCenter';
+import saveUser from './saveUser';
 
-export default function LoginView() {
+export default function LoginView({loginCallback = null}) {
+  async function onPressFacebookButton() {
+    const result = await LoginManager.logInWithPermissions([
+      'public_profile',
+      'email',
+    ]);
+    if (result.isCancelled) {
+      return;
+    }
+    const data = await AccessToken.getCurrentAccessToken();
+    if (!data) {
+      return;
+    }
+
+    const facebookCredential = auth.FacebookAuthProvider.credential(
+      data.accessToken,
+    );
+
+    auth()
+      .signInWithCredential(facebookCredential)
+      .then((loginResult) => {
+        const uid = loginResult.user.uid;
+        authCenter().saveUserId(uid);
+        loginCallback(uid);
+
+        const user = loginResult.user;
+        saveUser(user.displayName, uid, user.email, user.photoURL);
+      })
+      .catch((error) => {
+        console.log('Reject error::', error);
+      });
+  }
+
   return (
     <View style={{justifyContent: 'center', alignItems: 'center'}}>
       <Text
@@ -17,31 +53,33 @@ export default function LoginView() {
         }}>
         Login to use all functions
       </Text>
-      <View
-        style={{
-          backgroundColor: '#rgb(62,90,147)',
-          paddingHorizontal: 16,
-          paddingVertical: 2,
-          flexDirection: 'row',
-          borderRadius: 8,
-          alignItems: 'center',
-        }}>
-        <AntDesign name="facebook-square" size={32} color="white" />
-        <Text
+      <TouchableOpacity onPress={onPressFacebookButton}>
+        <View
           style={{
-            ...getFont(Weight.bold, 18),
-            color: 'white',
-            margin: 16,
-            textAlign: 'center',
+            backgroundColor: '#rgb(62,90,147)',
+            paddingHorizontal: 16,
+            paddingVertical: 2,
+            flexDirection: 'row',
+            borderRadius: 8,
+            alignItems: 'center',
           }}>
-          Login with Facebook
-        </Text>
-      </View>
+          <AntDesign name="facebook-square" size={32} color="white" />
+          <Text
+            style={{
+              ...getFont(Weight.bold, 18),
+              color: 'white',
+              margin: 16,
+              textAlign: 'center',
+            }}>
+            Login with Facebook
+          </Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
 
-export function LoginPopup({visible, setVisible}) {
+export function LoginPopup({visible, setVisible, loginCallback}) {
   return (
     <Modal
       visible={visible}
@@ -50,7 +88,7 @@ export function LoginPopup({visible, setVisible}) {
         setVisible(false);
       }}>
       <ModalContent style={{margin: 16}}>
-        <LoginView />
+        <LoginView loginCallback={loginCallback} />
       </ModalContent>
     </Modal>
   );

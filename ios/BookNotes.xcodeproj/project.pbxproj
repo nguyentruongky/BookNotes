@@ -16,6 +16,7 @@
 		26155D5225877AEE004F2DB3 /* SFUIDisplay-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 26155D4E25877AEE004F2DB3 /* SFUIDisplay-SemiBold.otf */; };
 		26155D5325877AEE004F2DB3 /* SFUIDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 26155D4F25877AEE004F2DB3 /* SFUIDisplay-Bold.otf */; };
 		26155D5425877AEE004F2DB3 /* SFUIDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 26155D5025877AEE004F2DB3 /* SFUIDisplay-Regular.otf */; };
+		266A0D3425B0587C00BF82D9 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266A0D3325B0587C00BF82D9 /* Test.swift */; };
 		26E5979025A9322A009D1076 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26E5978F25A9322A009D1076 /* GoogleService-Info.plist */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -59,6 +60,8 @@
 		26155D4E25877AEE004F2DB3 /* SFUIDisplay-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-SemiBold.otf"; sourceTree = "<group>"; };
 		26155D4F25877AEE004F2DB3 /* SFUIDisplay-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Bold.otf"; sourceTree = "<group>"; };
 		26155D5025877AEE004F2DB3 /* SFUIDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Regular.otf"; sourceTree = "<group>"; };
+		266A0CE325B057EE00BF82D9 /* BookNotes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BookNotes-Bridging-Header.h"; sourceTree = "<group>"; };
+		266A0D3325B0587C00BF82D9 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		26E5978F25A9322A009D1076 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* BookNotes-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BookNotes-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* BookNotes-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BookNotes-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +145,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				266A0D3325B0587C00BF82D9 /* Test.swift */,
+				266A0CE325B057EE00BF82D9 /* BookNotes-Bridging-Header.h */,
 			);
 			name = BookNotes;
 			sourceTree = "<group>";
@@ -310,7 +315,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = YM62LBZ4XN;
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1230;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -427,6 +432,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BookNotes/Pods-BookNotes-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -448,6 +454,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -559,6 +566,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BookNotes-BookNotesTests/Pods-BookNotes-BookNotesTests-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -580,6 +588,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -669,6 +678,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				266A0D3425B0587C00BF82D9 /* Test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,6 +719,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C402248A7A52F5F5319CCA1A /* Pods-BookNotes-BookNotesTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -732,6 +743,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D7CEEA95DA765AD1212269EF /* Pods-BookNotes-BookNotesTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = BookNotesTests/Info.plist;
@@ -766,6 +778,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ky.booknotes;
 				PRODUCT_NAME = BookNotes;
+				SWIFT_OBJC_BRIDGING_HEADER = "BookNotes-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -789,6 +802,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ky.booknotes;
 				PRODUCT_NAME = BookNotes;
+				SWIFT_OBJC_BRIDGING_HEADER = "BookNotes-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

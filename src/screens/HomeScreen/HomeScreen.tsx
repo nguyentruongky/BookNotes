@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, Dimensions, TextInput, FlatList, Keyboard} from 'react-native';
 import {Weight, getFont} from '@fonts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -15,19 +15,23 @@ import VectorButton from '@src/components/VectorButton';
 import ReportPopup from '@src/components/ReportPopup';
 import Note from '@src/models/Note';
 import {LoginPopup} from '../ProfileScreen/LoginView';
+import authCenter from '@src/utils/authCenter';
 
 const isPresentation = true;
 export const HomeScreenRoute = [Screen(AddNoteScreen, isPresentation)];
 
+const auth = authCenter();
 let timeout: NodeJS.Timeout;
 export default function HomeScreen({navigation}) {
   const {width: screenWidth, height: screenHeight} = Dimensions.get('screen');
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
   const [reportVisible, setReportVisible] = useState(false);
-  const [loginVisible, setLoginVisible] = useState(true);
+  const [loginVisible, setLoginVisible] = useState(false);
+  let userId = null;
   useEffect(() => {
     // useNotes((notes: any[]) => setNotes(notes));
+    auth.getUserId().then((_userId) => (userId = _userId));
   }, []);
 
   const [keyword, setKeyword] = useState('');
@@ -48,6 +52,22 @@ export default function HomeScreen({navigation}) {
   function cancelSearching() {
     setKeyword('');
     fetchNotes((notes: any[]) => setNotes(notes));
+  }
+
+  async function onPressAddButton() {
+    if (userId) {
+      navigation.push('AddNoteScreen');
+    } else {
+      setLoginVisible(!loginVisible);
+    }
+  }
+
+  function loginCallback(id: string) {
+    if (id) {
+      userId = id;
+      setLoginVisible(!loginVisible);
+      navigation.push('AddNoteScreen');
+    }
   }
 
   function onPressFilter() {
@@ -86,7 +106,7 @@ export default function HomeScreen({navigation}) {
           color="white"
           size={36}
           name="add"
-          onPress={() => navigation.push('AddNoteScreen')}
+          onPress={onPressAddButton}
           style={{
             backgroundColor: '#000000AA',
             height: 66,
@@ -102,7 +122,11 @@ export default function HomeScreen({navigation}) {
         setVisible={setReportVisible}
       />
 
-      <LoginPopup visible={loginVisible} setVisible={setLoginVisible} />
+      <LoginPopup
+        visible={loginVisible}
+        setVisible={setLoginVisible}
+        loginCallback={loginCallback}
+      />
     </SafeAreaView>
   );
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BookNotes</string>
+    <string name="facebook_app_id">156149402950367</string>
+    <string name="fb_login_protocol_scheme">fb156149402950367</string>
 </resources>
