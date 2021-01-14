@@ -6,6 +6,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {Text, View} from 'react-native';
+import ProfileScreen from '@src/screens/ProfileScreen/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const tabOptions = {
@@ -18,7 +19,7 @@ const tabOptions = {
 
 export default function Tabs() {
   function getIcon(screenName, focused) {
-    const tintColor = focused ? 'rgb(238,86,63)' : 'rgb(85,85,85)';
+    const tintColor = focused ? '#000000DD' : '#B8B8B8';
     const tabIcons = {
       HomeScreen: <Entypo name="home" size={30} color={tintColor} />,
       SearchScreen: <AntDesign name="search1" size={30} color={tintColor} />,
@@ -46,19 +47,5 @@ export default function Tabs() {
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
       <Tab.Screen name="ProfileScreen" component={ProfileScreen} />
     </Tab.Navigator>
-  );
-}
-
-function ProfileScreen() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'orange',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Text>Profile Screen</Text>
-    </View>
   );
 }

@@ -19,6 +19,7 @@
     "@types/react-native-modals": "^0.19.0",
     "react": "16.13.1",
     "react-native": "0.63.4",
+    "react-native-fbsdk": "^3.0.0",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-modals": "^0.22.3",
     "react-native-raw-bottom-sheet": "^2.2.0",

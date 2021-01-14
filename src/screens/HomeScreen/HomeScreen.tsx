@@ -14,6 +14,7 @@ import AddNoteScreen from '../AddNoteScreen/AddNoteScreen';
 import VectorButton from '@src/components/VectorButton';
 import ReportPopup from '@src/components/ReportPopup';
 import Note from '@src/models/Note';
+import {LoginPopup} from '../ProfileScreen/LoginView';
 
 const isPresentation = true;
 export const HomeScreenRoute = [Screen(AddNoteScreen, isPresentation)];
@@ -23,12 +24,13 @@ export default function HomeScreen({navigation}) {
   const {width: screenWidth, height: screenHeight} = Dimensions.get('screen');
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
+  const [reportVisible, setReportVisible] = useState(false);
+  const [loginVisible, setLoginVisible] = useState(true);
   useEffect(() => {
     // useNotes((notes: any[]) => setNotes(notes));
   }, []);
 
   const [keyword, setKeyword] = useState('');
-  const [reportVisible, setReportVisible] = useState(false);
   let searchTerm = '';
   function onKeywordChange(keyword: string) {
     setKeyword(keyword);
@@ -48,10 +50,11 @@ export default function HomeScreen({navigation}) {
     fetchNotes((notes: any[]) => setNotes(notes));
   }
 
-  function onPressFilter() {}
+  function onPressFilter() {
+    setLoginVisible(!loginVisible);
+  }
 
   function onReport(note: Note) {
-    console.log('onReport::note::', note);
     setSelectedNote(note);
     setReportVisible(true);
   }
@@ -98,6 +101,8 @@ export default function HomeScreen({navigation}) {
         visible={reportVisible}
         setVisible={setReportVisible}
       />
+
+      <LoginPopup visible={loginVisible} setVisible={setLoginVisible} />
     </SafeAreaView>
   );
 }
@@ -118,14 +123,14 @@ function TopBar({keyword, onKeywordChange, cancelSearching, onPressFilter}) {
         cancelSearching={cancelSearching}
       />
 
-      {/* <VectorButton
+      <VectorButton
         Library={Foundation}
         name="filter"
         size={30}
         color="#000000AA"
         style={{marginLeft: 16, height: 36}}
         onPress={onPressFilter}
-      /> */}
+      />
     </View>
   );
 }
