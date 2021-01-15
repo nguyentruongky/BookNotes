@@ -12,5 +12,5 @@ export default async function saveUser(
     email,
     image: image + '?type=large',
   };
-  firestore().collection('users').doc(userId).set(data);
+  firestore().collection('users').doc(userId).set(data, {merge: true});
 }

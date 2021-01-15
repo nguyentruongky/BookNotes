@@ -5,19 +5,16 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import LoginView from './LoginView';
 import auth from '@react-native-firebase/auth';
 import UserView from './UserView';
-import authCenter from '@src/utils/authCenter';
 import getUser from './getUser';
 
 export default function ProfileScreen() {
   const [user, setUser] = useState(null);
   function onAuthStateChanged(user) {
-    setUser(user);
-    authCenter().saveUserId(user.uid);
-
-    getUser(user.uid, (myAccount) => {
-      setUser(myAccount);
-      console.log('myAccount', myAccount);
-    });
+    if (user) {
+      getUser(user.uid, (myAccount) => {
+        setUser(myAccount);
+      });
+    }
   }
 
   useEffect(() => {

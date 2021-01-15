@@ -15,12 +15,11 @@ import VectorButton from '@src/components/VectorButton';
 import ReportPopup from '@src/components/ReportPopup';
 import Note from '@src/models/Note';
 import {LoginPopup} from '../ProfileScreen/LoginView';
-import authCenter from '@src/utils/authCenter';
+import auth from '@react-native-firebase/auth';
 
 const isPresentation = true;
 export const HomeScreenRoute = [Screen(AddNoteScreen, isPresentation)];
 
-const auth = authCenter();
 let timeout: NodeJS.Timeout;
 export default function HomeScreen({navigation}) {
   const {width: screenWidth, height: screenHeight} = Dimensions.get('screen');
@@ -28,10 +27,8 @@ export default function HomeScreen({navigation}) {
   const [selectedNote, setSelectedNote] = useState(null);
   const [reportVisible, setReportVisible] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
-  let userId = null;
   useEffect(() => {
     // useNotes((notes: any[]) => setNotes(notes));
-    auth.getUserId().then((_userId) => (userId = _userId));
   }, []);
 
   const [keyword, setKeyword] = useState('');
@@ -55,6 +52,7 @@ export default function HomeScreen({navigation}) {
   }
 
   async function onPressAddButton() {
+    const userId = auth().currentUser?.uid;
     if (userId) {
       navigation.push('AddNoteScreen');
     } else {
@@ -64,7 +62,6 @@ export default function HomeScreen({navigation}) {
 
   function loginCallback(id: string) {
     if (id) {
-      userId = id;
       setLoginVisible(!loginVisible);
       navigation.push('AddNoteScreen');
     }

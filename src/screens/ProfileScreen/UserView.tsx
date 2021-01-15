@@ -25,6 +25,7 @@ import Note from '@src/models/Note';
 import {ScrollView} from 'react-native-gesture-handler';
 import User from '@src/models/User';
 import AsyncImage from '@src/components/AsyncImage';
+import auth from '@react-native-firebase/auth';
 
 export default function UserView({user}) {
   return (
@@ -32,7 +33,7 @@ export default function UserView({user}) {
       <SafeAreaView>
         <PersonalView user={user} />
         <View style={{height: 1, backgroundColor: '#D3D3D3', marginTop: 32}} />
-        <NumberView />
+        <NumberView user={user} />
         <View style={{height: 1, backgroundColor: '#D3D3D3'}} />
         <MenuView />
       </SafeAreaView>
@@ -83,7 +84,8 @@ function PersonalView({user}) {
   );
 }
 
-function NumberView() {
+function NumberView({user}) {
+  const data = user as User;
   return (
     <View
       style={{
@@ -96,7 +98,7 @@ function NumberView() {
             ...getFont(Weight.bold, 28),
             color: '#000000DD',
           }}>
-          188
+          {data?.notes?.length}
         </Text>
         <Text
           style={{
@@ -115,7 +117,7 @@ function NumberView() {
             ...getFont(Weight.bold, 28),
             color: '#000000DD',
           }}>
-          188
+          {data?.bookmarks?.length}
         </Text>
         <Text
           style={{
@@ -123,7 +125,7 @@ function NumberView() {
             color: '#606060',
             marginTop: 8,
           }}>
-          Notes
+          Bookmarks
         </Text>
       </View>
     </View>
@@ -131,6 +133,9 @@ function NumberView() {
 }
 
 function MenuView() {
+  function onPressLogout() {
+    auth().signOut();
+  }
   return (
     <View>
       <MenuItem
@@ -152,6 +157,7 @@ function MenuView() {
         title="Log out"
         iconLeft={4}
         color="rgb(252,47,77)"
+        onPress={onPressLogout}
       />
     </View>
   );
@@ -163,9 +169,10 @@ function MenuItem({
   iconLeft = 0,
   title,
   color = '#000000DD',
+  onPress,
 }) {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <View
         style={{
           flexDirection: 'row',
