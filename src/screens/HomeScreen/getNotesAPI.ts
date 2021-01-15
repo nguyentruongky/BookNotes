@@ -1,16 +1,12 @@
 import firestore from '@react-native-firebase/firestore';
-import bookmarkStore from '@src/common/bookmarkStore';
 import Note from '@src/models/Note';
+import NoteFilter from '@src/utils/NoteFilter';
 
 export default async function getNotes(onSuccess: ([]) => void) {
-  firestore()
-    .collection('notes')
-    .get()
-    .then((node) => {
-      const notes = node.docs.map((raw) => {
-        return new Note(raw.data());
-      });
-
-      onSuccess(notes);
-    });
+  const node = await firestore().collection('notes').get();
+  let notes = node.docs.map((raw) => {
+    return new Note(raw.data());
+  });
+  notes = NoteFilter(notes);
+  onSuccess(notes);
 }

@@ -1,11 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Dimensions,
   TextInput,
   FlatList,
   Keyboard,
-  Text,
   TouchableWithoutFeedback,
 } from 'react-native';
 import {Weight, getFont} from '@fonts';
@@ -26,9 +25,6 @@ import {LoginPopup} from '../ProfileScreen/LoginView';
 import auth from '@react-native-firebase/auth';
 import getUserNotes from './getUserNotesAPI';
 import getMyBookmarks from '../../common/getMyBookmarksAPI';
-import addBookmark from '../../common/addBookmarkAPI';
-import checkBookmarkExist from '../../common/checkBookmarkExistAPI';
-import removeBookmark from '../../common/removeBookmarkAPI';
 
 const isPresentation = true;
 export const HomeScreenRoute = [Screen(AddNoteScreen, isPresentation)];
@@ -49,7 +45,7 @@ export default function HomeScreen({navigation}) {
   const [filterVisible, setFilterVisible] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
   useEffect(() => {
-    // getNotes((notes: any[]) => setNotes(notes));
+    getNotes((notes: any[]) => setNotes(notes));
   }, []);
 
   const [keyword, setKeyword] = useState('');

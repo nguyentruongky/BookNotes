@@ -1,10 +1,8 @@
 import User from '@src/models/User';
 import auth from '@react-native-firebase/auth';
 import getUser from '@src/screens/ProfileScreen/getUserAPI';
-import checkBookmarkExist from './checkBookmarkExistAPI';
 import addBookmark from './addBookmarkAPI';
 import removeBookmark from './removeBookmarkAPI';
-import {add} from 'react-native-reanimated';
 
 class BookmarkStore {
   currentUser: User;
@@ -19,14 +17,11 @@ class BookmarkStore {
   }
 
   exist(noteId: string) {
-    console.log('bookmarkStore::exist');
     if (this.currentUser == null) {
       this.getCurrentUser();
-      console.log('bookmarkStore::exist::false');
       return false;
     } else {
       const doesExist = this.currentUser.bookmarks.includes(noteId);
-      console.log('bookmarkStore::exist', doesExist);
       return doesExist;
     }
   }

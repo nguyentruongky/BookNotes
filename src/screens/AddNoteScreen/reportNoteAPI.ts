@@ -1,4 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 import ID from '@src/utils/ID';
 
 export default async function reportNote(
@@ -6,21 +7,23 @@ export default async function reportNote(
   reasons: string[],
   onSuccess: () => void,
 ) {
-  let userId = ID();
-  const data = {
-    createdTime: new Date().getTime(),
+  const userId = auth().currentUser?.uid ?? ID();
+  const reportData = {
+    createdAt: new Date().getTime(),
     reasons: reasons,
   };
+  const data = {};
+  data[userId] = reportData;
 
-  if (!userId) {
-    userId = ID();
-  }
   firestore()
     .collection('notes')
     .doc(noteId)
-    .collection('reported')
-    .doc(userId)
-    .set(data)
+    .set(
+      {
+        reported: data,
+      },
+      {merge: true},
+    )
     .then(() => {
       onSuccess();
     });
@@ -32,7 +35,6 @@ export default async function reportNote(
     .then((node) => {
       let reportedCount = 0;
       const data = node.data();
-      console.log('data::', data);
       if (data !== undefined) {
         reportedCount = (data['reportedCount'] as number) ?? 0;
       }

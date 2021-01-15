@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import Note from '@src/models/Note';
 import User from '@src/models/User';
+import NoteFilter from '@src/utils/NoteFilter';
 
 export default async function getMyBookmarks(
   userId: string,
@@ -23,10 +24,10 @@ export default async function getMyBookmarks(
     .where('id', 'in', user.bookmarks)
     .get()
     .then((querySnapshot) => {
-      const notes = querySnapshot.docs.map((raw) => {
+      let notes = querySnapshot.docs.map((raw) => {
         return new Note(raw.data());
       });
-
+      notes = NoteFilter(notes);
       onSuccess(notes);
     });
 }

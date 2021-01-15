@@ -1,4 +1,5 @@
 import bookmarkStore from '@src/common/bookmarkStore';
+import auth from '@react-native-firebase/auth';
 import ID from '@src/utils/ID';
 
 export default class Note {
@@ -9,6 +10,8 @@ export default class Note {
   bookmarkCount: number;
   searchTerms: string[];
   isBookmarkedByMe: boolean = false;
+  isReportedByMe: boolean = false;
+  shouldHidden: boolean = false;
 
   constructor(raw: any) {
     this.id = raw.id ?? ID();
@@ -18,6 +21,11 @@ export default class Note {
     this.bookmarkCount = raw.bookmarkCount;
 
     this.isBookmarkedByMe = bookmarkStore.exist(this.id);
+
+    const userId = auth().currentUser?.uid ?? '';
+    const reportedBy = Object.keys(raw.reported ?? {});
+    this.isReportedByMe = reportedBy.includes(userId);
+    this.shouldHidden = (raw.reportedCount ?? 0) > 5;
   }
 
   static init(content: string, book: string) {
@@ -31,7 +39,6 @@ export default class Note {
       words.push(word);
     });
     note.searchTerms = words;
-    note.isBookmarkedByMe = bookmarkStore.exist(note.id);
     return note;
   }
 }
