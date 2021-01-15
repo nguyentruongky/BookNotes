@@ -5,12 +5,13 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import LoginView from './LoginView';
 import auth from '@react-native-firebase/auth';
 import UserView from './UserView';
-import getUser from './getUser';
+import getUser from './getUserAPI';
 
 export default function ProfileScreen() {
   const [user, setUser] = useState(null);
   function onAuthStateChanged(user) {
     if (user) {
+      setUser(user);
       getUser(user.uid, (myAccount) => {
         setUser(myAccount);
       });

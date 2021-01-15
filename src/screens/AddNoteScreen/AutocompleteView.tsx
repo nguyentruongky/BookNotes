@@ -17,11 +17,7 @@ export default function AutocompleteView({dataSource, onSelectItem}) {
       ListFooterComponent={<View style={{height: 16}} />}
       data={dataSource}
       renderItem={(item) => (
-        <AutocompleteCell
-          index={item.index}
-          item={item}
-          onPress={onSelectItem}
-        />
+        <AutocompleteCell item={item} onPress={onSelectItem} />
       )}
       keyExtractor={(item) => item}
     />

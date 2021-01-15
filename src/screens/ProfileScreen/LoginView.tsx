@@ -5,7 +5,7 @@ import Modal, {ModalContent, ScaleAnimation} from 'react-native-modals';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {AccessToken, LoginManager} from 'react-native-fbsdk';
 import auth from '@react-native-firebase/auth';
-import saveUser from './saveUser';
+import saveUser from './saveUserAPI';
 
 export default function LoginView({loginCallback = null}) {
   async function onPressFacebookButton() {
@@ -29,9 +29,12 @@ export default function LoginView({loginCallback = null}) {
       .signInWithCredential(facebookCredential)
       .then((loginResult) => {
         const uid = loginResult.user.uid;
-        loginCallback(uid);
+        if (loginCallback) {
+          loginCallback(uid);
+        }
 
         const user = loginResult.user;
+        console.log('user::', user);
         saveUser(user.displayName, uid, user.email, user.photoURL);
       })
       .catch((error) => {

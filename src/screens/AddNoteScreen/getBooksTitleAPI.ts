@@ -1,6 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 
-export default async function fetchBooksTitle(onSuccess: ([]) => void) {
+export default async function getBooksTitle(onSuccess: ([]) => void) {
   firestore()
     .collection('books')
     .get()

@@ -1,12 +1,20 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, Dimensions, TextInput, FlatList, Keyboard} from 'react-native';
+import {
+  View,
+  Dimensions,
+  TextInput,
+  FlatList,
+  Keyboard,
+  Text,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {Weight, getFont} from '@fonts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import NoteCell from './NoteCell';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import fetchNotes from '@src/screens/HomeScreen/fetchNotesAPI';
+import getNotes from '@src/screens/HomeScreen/getNotesAPI';
 import searchNotes from '@src/screens/HomeScreen/searchNotesAPI';
 import TextButton from '@src/components/TextButton';
 import Screen from '@src/components/Screen';
@@ -16,19 +24,32 @@ import ReportPopup from '@src/components/ReportPopup';
 import Note from '@src/models/Note';
 import {LoginPopup} from '../ProfileScreen/LoginView';
 import auth from '@react-native-firebase/auth';
+import getUserNotes from './getUserNotesAPI';
+import getMyBookmarks from '../../common/getMyBookmarksAPI';
+import addBookmark from '../../common/addBookmarkAPI';
+import checkBookmarkExist from '../../common/checkBookmarkExistAPI';
+import removeBookmark from '../../common/removeBookmarkAPI';
 
 const isPresentation = true;
 export const HomeScreenRoute = [Screen(AddNoteScreen, isPresentation)];
+const {width: screenWidth, height: screenHeight} = Dimensions.get('screen');
+
+enum FilterType {
+  MY_BOOKMARKS,
+  MY_NOTES,
+  ALL_NOTES,
+}
 
 let timeout: NodeJS.Timeout;
+let filterType = FilterType.ALL_NOTES;
 export default function HomeScreen({navigation}) {
-  const {width: screenWidth, height: screenHeight} = Dimensions.get('screen');
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
   const [reportVisible, setReportVisible] = useState(false);
+  const [filterVisible, setFilterVisible] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
   useEffect(() => {
-    // useNotes((notes: any[]) => setNotes(notes));
+    // getNotes((notes: any[]) => setNotes(notes));
   }, []);
 
   const [keyword, setKeyword] = useState('');
@@ -48,7 +69,7 @@ export default function HomeScreen({navigation}) {
   }
   function cancelSearching() {
     setKeyword('');
-    fetchNotes((notes: any[]) => setNotes(notes));
+    getNotes((notes: any[]) => setNotes(notes));
   }
 
   async function onPressAddButton() {
@@ -67,13 +88,45 @@ export default function HomeScreen({navigation}) {
     }
   }
 
-  function onPressFilter() {
-    setLoginVisible(!loginVisible);
-  }
-
   function onReport(note: Note) {
     setSelectedNote(note);
     setReportVisible(true);
+  }
+
+  function onPressMyNotes() {
+    setFilterVisible(false);
+
+    if (filterType == FilterType.MY_NOTES) {
+      return;
+    }
+    filterType = FilterType.MY_NOTES;
+    const userId = auth().currentUser?.uid;
+    getUserNotes(userId, (notes: Note[]) => {
+      setNotes(notes);
+    });
+  }
+
+  function onPressMyBookmarks() {
+    setFilterVisible(false);
+
+    if (filterType == FilterType.MY_BOOKMARKS) {
+      return;
+    }
+    filterType = FilterType.MY_BOOKMARKS;
+    const userId = auth().currentUser?.uid;
+    getMyBookmarks(userId, (notes: Note[]) => {
+      setNotes(notes);
+    });
+  }
+
+  function onPressLatestNotes() {
+    setFilterVisible(false);
+
+    if (filterType == FilterType.ALL_NOTES) {
+      return;
+    }
+    filterType = FilterType.ALL_NOTES;
+    getNotes((notes: any[]) => setNotes(notes));
   }
 
   return (
@@ -82,7 +135,7 @@ export default function HomeScreen({navigation}) {
         keyword={keyword}
         onKeywordChange={onKeywordChange}
         cancelSearching={cancelSearching}
-        onPressFilter={onPressFilter}
+        onPressFilter={() => setFilterVisible(true)}
       />
       <FlatList
         data={notes}
@@ -112,6 +165,15 @@ export default function HomeScreen({navigation}) {
           }}
         />
       </View>
+
+      {filterVisible ? (
+        <FilterMenu
+          setFilterVisible={setFilterVisible}
+          onPressMyBookmarks={onPressMyBookmarks}
+          onPressMyNotes={onPressMyNotes}
+          onPressLatestNotes={onPressLatestNotes}
+        />
+      ) : null}
 
       <ReportPopup
         note={selectedNote}
@@ -155,6 +217,7 @@ function TopBar({keyword, onKeywordChange, cancelSearching, onPressFilter}) {
     </View>
   );
 }
+
 function SearchBar({keyword, onKeywordChange, cancelSearching}) {
   const [searchEnabled, setSearchEnabled] = useState(false);
   function onPressCancel() {
@@ -203,5 +266,57 @@ function SearchBar({keyword, onKeywordChange, cancelSearching}) {
         />
       ) : null}
     </View>
+  );
+}
+
+function FilterMenu({
+  setFilterVisible,
+  onPressMyNotes,
+  onPressMyBookmarks,
+  onPressLatestNotes,
+}) {
+  return (
+    <TouchableWithoutFeedback onPress={() => setFilterVisible(false)}>
+      <View
+        style={{
+          position: 'absolute',
+          width: screenWidth,
+          height: screenHeight,
+          flex: 1,
+          backgroundColor: 'rgba(238,238,238, 0.5)',
+          flexDirection: 'row',
+        }}>
+        <View style={{flex: 1}} />
+        <View style={{marginTop: 110, marginRight: 20}}>
+          <View
+            style={{
+              backgroundColor: 'rgb(79,79,79)',
+              borderRadius: 10,
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
+              paddingHorizontal: 16,
+              paddingBottom: 16,
+            }}>
+            <FilterButton title="My notes" onPress={onPressMyNotes} />
+            <FilterButton title="My bookmarks" onPress={onPressMyBookmarks} />
+            <FilterButton title="Latest notes" onPress={onPressLatestNotes} />
+          </View>
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
+  );
+}
+
+function FilterButton({title, onPress}) {
+  return (
+    <TextButton
+      title={title}
+      textStyle={{
+        ...getFont(Weight.medium, 15),
+        color: 'white',
+        marginTop: 16,
+      }}
+      onPress={onPress}
+    />
   );
 }

@@ -14,7 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import fetchNotes from '@src/screens/HomeScreen/fetchNotesAPI';
+import getNotes from '@src/screens/HomeScreen/getNotesAPI';
 import searchNotes from '@src/screens/HomeScreen/searchNotesAPI';
 import TextButton from '@src/components/TextButton';
 import Screen from '@src/components/Screen';

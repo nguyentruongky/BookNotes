@@ -14,7 +14,8 @@ export default async function addNoteAPI(
     .then(() => onSuccess(note));
 
   const bookWords = book.toLocaleLowerCase().split(' ');
-  const bookTitle = bookWords.join('');
+  let bookTitle = bookWords.join('');
+  bookTitle = bookTitle.charAt(0).toUpperCase() + bookTitle.slice(1);
   firestore().collection('books').doc(bookTitle).set({
     title: book,
     searchTerms: bookWords,

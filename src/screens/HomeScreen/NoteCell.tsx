@@ -1,5 +1,5 @@
-import React, {useRef} from 'react';
-import {View, Text, SafeAreaView, Image} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {View, Text, SafeAreaView} from 'react-native';
 import {Weight, getFont} from '@fonts';
 import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -10,17 +10,29 @@ import {
 } from 'react-native-gesture-handler';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Note from '@src/models/Note';
+import VectorButton from '@src/components/VectorButton';
+import bookmarkStore from '@src/common/bookmarkStore';
 
 export default function NoteCell({data, onReport}) {
   const note = data as Note;
   if (note === undefined) {
     return <View />;
   }
+
+  const [isBookmarked, setIsBookmarked] = useState(note.isBookmarkedByMe);
+
   const refRBSheet = useRef();
 
   function onLongPress() {
     refRBSheet.current.open();
   }
+
+  function onPressBookmark() {
+    const noteId = note.id;
+    bookmarkStore.toggleBookmark(noteId);
+    setIsBookmarked(!isBookmarked);
+  }
+
   return (
     <SafeAreaView
       style={{
@@ -53,12 +65,25 @@ export default function NoteCell({data, onReport}) {
           </Text>
         </TouchableWithoutFeedback>
       </View>
-      <FontAwesome
-        name="bookmark"
-        size={30}
-        color="#900"
-        style={{marginRight: 16, marginTop: 16}}
-      />
+      {isBookmarked ? (
+        <VectorButton
+          Library={FontAwesome}
+          name="bookmark"
+          size={30}
+          color="#900"
+          style={{marginRight: 16, marginTop: 16}}
+          onPress={onPressBookmark}
+        />
+      ) : (
+        <VectorButton
+          Library={FontAwesome}
+          name="bookmark-o"
+          size={30}
+          color="#900"
+          style={{marginRight: 16, marginTop: 16}}
+          onPress={onPressBookmark}
+        />
+      )}
 
       <RBSheet
         ref={refRBSheet}
@@ -93,13 +118,13 @@ function BottomSheet({onReport}) {
         onPress={onReport}
       />
 
-      <Button
+      {/* <Button
         title="Share"
         icon={
           <EvilIcons name="share-apple" size={28} style={{marginRight: 8}} />
         }
         onPress={() => console.log('Share pressed')}
-      />
+      /> */}
     </View>
   );
 }

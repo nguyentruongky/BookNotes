@@ -5,7 +5,7 @@ import {Weight, getFont} from '@fonts';
 import TextButton from './TextButton';
 import MainButton from './MainButton';
 import {ScrollView} from 'react-native-gesture-handler';
-import reportNote from '@src/screens/AddNoteScreen/reportNote';
+import reportNote from '@src/screens/AddNoteScreen/reportNoteAPI';
 
 const reasons = {};
 export default function ReportPopup({note, visible, setVisible}) {

@@ -1,3 +1,4 @@
+import bookmarkStore from '@src/common/bookmarkStore';
 import ID from '@src/utils/ID';
 
 export default class Note {
@@ -7,6 +8,7 @@ export default class Note {
   book: string;
   bookmarkCount: number;
   searchTerms: string[];
+  isBookmarkedByMe: boolean = false;
 
   constructor(raw: any) {
     this.id = raw.id ?? ID();
@@ -14,6 +16,8 @@ export default class Note {
     this.author = raw.author;
     this.book = raw.book;
     this.bookmarkCount = raw.bookmarkCount;
+
+    this.isBookmarkedByMe = bookmarkStore.exist(this.id);
   }
 
   static init(content: string, book: string) {
@@ -27,6 +31,7 @@ export default class Note {
       words.push(word);
     });
     note.searchTerms = words;
+    note.isBookmarkedByMe = bookmarkStore.exist(note.id);
     return note;
   }
 }

@@ -15,7 +15,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import VectorButton from '@src/components/VectorButton';
 import MainButton from '@src/components/MainButton';
 import addNoteAPI from './addNoteAPI';
-import fetchBooksTitle from './fetchBooksTitle';
+import getBooksTitle from './getBooksTitleAPI';
 import AutocompleteView from './AutocompleteView';
 
 export default function AddNoteScreen({navigation}) {
@@ -27,7 +27,7 @@ export default function AddNoteScreen({navigation}) {
   const [filteredBooks, setFilteredBooks] = useState(originalBookDataSource);
   let scrollView: ScrollView;
   useEffect(() => {
-    fetchBooksTitle((titles: any[]) => {
+    getBooksTitle((titles: any[]) => {
       setOriginalBookDataSource(titles);
       setFilteredBooks(titles);
     });
@@ -48,9 +48,12 @@ export default function AddNoteScreen({navigation}) {
   }, []);
   function filterBook(title: string) {
     const query = title.toLowerCase();
-    const data = originalBookDataSource.filter((item) => {
+    let data = originalBookDataSource.filter((item) => {
       return item.toLowerCase().includes(query);
     });
+    if (data.length == 0) {
+      data.push(title);
+    }
     setFilteredBooks(data);
   }
 
@@ -118,7 +121,10 @@ export default function AddNoteScreen({navigation}) {
                 color: 'white',
                 ...getFont(Weight.medium, 15),
                 flex: 1,
+                textTransform: 'capitalize',
               }}
+              autoCapitalize="words"
+              autoCorrect={false}
               value={content}
               onChangeText={setContent}
               multiline={true}
@@ -154,6 +160,8 @@ export default function AddNoteScreen({navigation}) {
                 flex: 1,
               }}
               value={book}
+              autoCapitalize="words"
+              autoCorrect={false}
               onChangeText={onChangeBookTitle}
               onFocus={onFocusBook}
               multiline={true}
