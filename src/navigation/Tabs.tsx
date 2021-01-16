@@ -5,7 +5,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import colors from '@colors';
+import {Weight, getFont, colors} from '@src/assets/theme';
 import ProfileScreen from '@src/screens/ProfileScreen/ProfileScreen';
 
 const Tab = createBottomTabNavigator();

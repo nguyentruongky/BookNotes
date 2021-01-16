@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity, ActivityIndicator} from 'react-native';
-import {Weight, getFont} from '@fonts';
-import colors from '@colors';
+import {Weight, getFont, colors} from '@src/assets/theme';
 
 export default function MainButton({
   title,

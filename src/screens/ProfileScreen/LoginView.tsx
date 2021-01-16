@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
-import {Weight, getFont} from '@fonts';
+import {Weight, getFont, colors} from '@src/assets/theme';
 import Modal, {ModalContent, ScaleAnimation} from 'react-native-modals';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {AccessToken, LoginManager} from 'react-native-fbsdk';
@@ -47,7 +47,7 @@ export default function LoginView({loginCallback = null}) {
       <Text
         style={{
           ...getFont(Weight.regular, 14),
-          color: 'gray',
+          color: colors.subText,
           margin: 16,
           marginTop: 0,
           textAlign: 'center',

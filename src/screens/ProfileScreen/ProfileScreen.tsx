@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
-import {Weight, getFont} from '@fonts';
+import {Weight, getFont, colors} from '@src/assets/theme';
 import Entypo from 'react-native-vector-icons/Entypo';
 import LoginView from './LoginView';
 import auth from '@react-native-firebase/auth';
 import UserView from './UserView';
 import getUser from './getUserAPI';
-import colors from '@colors';
 
 export default function ProfileScreen() {
   const [user, setUser] = useState(null);

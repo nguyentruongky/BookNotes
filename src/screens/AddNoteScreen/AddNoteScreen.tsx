@@ -8,8 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import {Weight, getFont} from '@fonts';
-import colors from '@colors';
+import {Weight, getFont, colors} from '@src/assets/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';

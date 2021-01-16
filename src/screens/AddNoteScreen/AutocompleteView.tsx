@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
-import {Weight, getFont} from '@fonts';
-import colors from '@colors';
+import {Weight, getFont, colors} from '@src/assets/theme';
 
 export default function AutocompleteView({dataSource, onSelectItem}) {
   return (

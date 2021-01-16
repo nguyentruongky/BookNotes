@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, Dimensions, TextInput, Keyboard} from 'react-native';
 import Modal, {ModalContent, ScaleAnimation} from 'react-native-modals';
-import {Weight, getFont} from '@fonts';
+import {Weight, getFont, colors} from '@src/assets/theme';
 import TextButton from './TextButton';
 import MainButton from './MainButton';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -69,18 +69,17 @@ export default function ReportPopup({note, visible, setVisible}) {
         setKeyboardVisible(false);
         setCanSubmit(false);
       }}>
-      <ModalContent>
+      <ModalContent style={{backgroundColor: colors.popupBg}}>
         <View
           style={{
             margin: -20,
             width: screenWidth - 48,
-            backgroundColor: 'white',
           }}>
           {messageVisible ? (
             <Text
               style={{
                 ...getFont(Weight.semiBold, 15),
-                color: 'black',
+                color: colors.mainText,
                 margin: 16,
                 textAlign: 'center',
               }}>
@@ -93,14 +92,14 @@ export default function ReportPopup({note, visible, setVisible}) {
               <Text
                 style={{
                   ...getFont(Weight.semiBold, 14),
-                  color: 'black',
+                  color: colors.mainText,
                   margin: 16,
                   textAlign: 'center',
                 }}>
                 What do you want to report?
               </Text>
 
-              <View style={{height: 1, backgroundColor: 'gray'}} />
+              <View style={{height: 1, backgroundColor: colors.line}} />
 
               <View
                 style={{
@@ -129,7 +128,7 @@ export default function ReportPopup({note, visible, setVisible}) {
                   reasonTextInput = input;
                 }}
                 style={{
-                  color: 'black',
+                  color: colors.mainText,
                   ...getFont(Weight.medium, 15),
                   height: keyboardVisible ? 100 : 0,
                   marginHorizontal: 16,
@@ -138,7 +137,7 @@ export default function ReportPopup({note, visible, setVisible}) {
                   paddingTop: keyboardVisible ? 16 : 0,
                   borderRadius: 10,
                   borderWidth: 1,
-                  borderColor: 'gray',
+                  borderColor: colors.line,
                   opacity: keyboardVisible ? 1 : 0,
                 }}
                 value={reasonInputValue}
@@ -153,7 +152,8 @@ export default function ReportPopup({note, visible, setVisible}) {
                 }}
                 multiline={true}
                 placeholder="Tell us the problem"
-                placeholderTextColor="#00000044"
+                placeholderTextColor={colors.subText}
+                selectionColor={colors.subText}
               />
 
               <MainButton
@@ -182,7 +182,7 @@ function TagView({title, onPress}) {
   return (
     <TextButton
       title={title}
-      textStyle={{color: selected ? 'white' : 'gray'}}
+      textStyle={{color: selected ? colors.mainText : colors.subText}}
       onPress={onPressButton}
       style={{
         paddingHorizontal: 16,
@@ -191,8 +191,8 @@ function TagView({title, onPress}) {
         marginBottom: 8,
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: selected ? '#121212' : 'gray',
-        backgroundColor: selected ? '#121212' : 'white',
+        borderColor: selected ? colors.bg : colors.inputBg,
+        backgroundColor: selected ? colors.bg : colors.inputBg,
       }}
     />
   );

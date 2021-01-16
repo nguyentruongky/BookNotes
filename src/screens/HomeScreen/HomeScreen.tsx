@@ -6,9 +6,9 @@ import {
   FlatList,
   Keyboard,
   TouchableWithoutFeedback,
+  StatusBar,
 } from 'react-native';
-import {Weight, getFont} from '@fonts';
-import colors from '@colors';
+import {Weight, getFont, colors} from '@src/assets/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
@@ -128,6 +128,7 @@ export default function HomeScreen({navigation}) {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.bg}}>
+      <StatusBar barStyle="light-content" />
       <TopBar
         keyword={keyword}
         onKeywordChange={onKeywordChange}

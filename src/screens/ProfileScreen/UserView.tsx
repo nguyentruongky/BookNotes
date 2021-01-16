@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
-import {Weight, getFont} from '@fonts';
-import colors from '@colors';
+import {Weight, getFont, colors} from '@src/assets/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -16,10 +15,10 @@ export default function UserView({user}) {
       <SafeAreaView>
         <PersonalView user={user} />
         <View
-          style={{height: 1, backgroundColor: colors.subText, marginTop: 32}}
+          style={{height: 1, backgroundColor: colors.line, marginTop: 32}}
         />
         <NumberView user={user} />
-        <View style={{height: 1, backgroundColor: colors.subText}} />
+        <View style={{height: 1, backgroundColor: colors.line}} />
         <MenuView />
       </SafeAreaView>
     </ScrollView>
@@ -94,7 +93,7 @@ function NumberView({user}) {
           Notes
         </Text>
       </View>
-      <View style={{width: 1, backgroundColor: colors.subText}} />
+      <View style={{width: 1, backgroundColor: colors.line}} />
 
       <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
         <Text
@@ -134,9 +133,7 @@ function MenuView() {
         title="Your Bookmarks"
         iconLeft={4}
       />
-      <View
-        style={{marginTop: 32, height: 1, backgroundColor: colors.subText}}
-      />
+      <View style={{marginTop: 32, height: 1, backgroundColor: colors.line}} />
 
       <MenuItem
         IconLibrary={Ionicons}

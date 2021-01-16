@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
-import {Weight, getFont} from '@fonts';
+import {Weight, getFont, colors} from '@src/assets/theme';
 
 export default function TextButton({
   title,

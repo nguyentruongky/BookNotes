@@ -1,7 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {View, Text, SafeAreaView} from 'react-native';
-import {Weight, getFont} from '@fonts';
-import colors from '@colors';
+import {Weight, getFont, colors} from '@src/assets/theme';
 import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {
@@ -56,7 +55,7 @@ export default function NoteCell({data, onReport}) {
               ...getFont(Weight.regular, 12),
               color: colors.subText,
               textAlign: 'right',
-              marginTop: 8,
+              marginTop: 16,
             }}>
             {note?.book}
           </Text>
