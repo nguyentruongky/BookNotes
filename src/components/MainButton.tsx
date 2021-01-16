@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {Weight, getFont} from '@fonts';
+import colors from '@colors';
 
 export default function MainButton({
   title,
@@ -16,9 +17,9 @@ export default function MainButton({
       disabled={!isEnabled}
       style={{
         height: 56,
-        marginHorizontal: 20,
-        backgroundColor: '#000000DE',
-        borderRadius: 10,
+        marginHorizontal: 16,
+        backgroundColor: colors.mainButtonBg,
+        borderRadius: 8,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 20,

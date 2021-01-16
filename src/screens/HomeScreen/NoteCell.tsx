@@ -1,9 +1,9 @@
 import React, {useRef, useState} from 'react';
 import {View, Text, SafeAreaView} from 'react-native';
 import {Weight, getFont} from '@fonts';
+import colors from '@colors';
 import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -34,30 +34,27 @@ export default function NoteCell({data, onReport}) {
   }
 
   return (
-    <SafeAreaView
-      style={{
-        flexDirection: 'row',
-      }}>
+    <SafeAreaView style={{flexDirection: 'row'}}>
       <View
         style={{
           flex: 1,
           margin: 16,
           marginBottom: 0,
           padding: 16,
-          borderRadius: 16,
-          backgroundColor: '#000000AA',
+          borderRadius: 10,
+          backgroundColor: colors.bubble,
         }}>
         <TouchableWithoutFeedback
           delayLongPress={0}
           delayPressIn={0}
           onLongPress={onLongPress}>
-          <Text style={{...getFont(Weight.bold, 15), color: 'white'}}>
+          <Text style={{...getFont(Weight.bold, 15), color: colors.mainText}}>
             {note?.content}
           </Text>
           <Text
             style={{
               ...getFont(Weight.regular, 12),
-              color: '#ffffffAA',
+              color: colors.subText,
               textAlign: 'right',
               marginTop: 8,
             }}>
@@ -70,7 +67,7 @@ export default function NoteCell({data, onReport}) {
           Library={FontAwesome}
           name="bookmark"
           size={30}
-          color="#900"
+          color={colors.mainButtonBg}
           style={{marginRight: 16, marginTop: 16}}
           onPress={onPressBookmark}
         />
@@ -79,7 +76,7 @@ export default function NoteCell({data, onReport}) {
           Library={FontAwesome}
           name="bookmark-o"
           size={30}
-          color="#900"
+          color={colors.mainButtonBg}
           style={{marginRight: 16, marginTop: 16}}
           onPress={onPressBookmark}
         />
@@ -91,11 +88,14 @@ export default function NoteCell({data, onReport}) {
         closeOnPressMask={true}
         height={160}
         customStyles={{
+          container: {
+            backgroundColor: colors.popupBg,
+          },
           wrapper: {
             backgroundColor: 'transparent',
           },
           draggableIcon: {
-            backgroundColor: '#000',
+            backgroundColor: 'white',
           },
         }}>
         <BottomSheet
@@ -114,7 +114,14 @@ function BottomSheet({onReport}) {
     <View>
       <Button
         title="Report"
-        icon={<Octicons name="report" size={20} style={{marginRight: 16}} />}
+        icon={
+          <Octicons
+            name="report"
+            color={colors.subText}
+            size={20}
+            style={{marginRight: 16}}
+          />
+        }
         onPress={onReport}
       />
 
@@ -140,7 +147,7 @@ function Button({title, icon, onPress}) {
           alignItems: 'center',
         }}>
         {icon}
-        <Text style={{color: 'black', ...getFont(Weight.medium, 16)}}>
+        <Text style={{color: colors.subText, ...getFont(Weight.medium, 16)}}>
           {title}
         </Text>
       </View>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {Weight, getFont} from '@fonts';
+import colors from '@colors';
 
 export default function AutocompleteView({dataSource, onSelectItem}) {
   return (
@@ -10,7 +11,7 @@ export default function AutocompleteView({dataSource, onSelectItem}) {
         paddingHorizontal: 16,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#000000AA',
+        borderColor: colors.inputBg,
         maxHeight: 160,
       }}
       showsVerticalScrollIndicator={false}
@@ -30,7 +31,7 @@ function AutocompleteCell({item, onPress}) {
       <Text
         style={{
           ...getFont(Weight.medium, 14),
-          color: 'gray',
+          color: colors.subText,
           marginTop: 16,
           textTransform: 'capitalize',
         }}>

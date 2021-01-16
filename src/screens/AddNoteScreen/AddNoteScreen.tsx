@@ -9,6 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import {Weight, getFont} from '@fonts';
+import colors from '@colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -31,20 +32,6 @@ export default function AddNoteScreen({navigation}) {
       setOriginalBookDataSource(titles);
       setFilteredBooks(titles);
     });
-
-    // const titles = [
-    //   'Ah, love, let us be true',
-    //   'To one another! for the world, which seems',
-    //   'To lie before us like a land of dreams,',
-    //   'So various, so beautiful, so new,',
-    //   'Hath really neither joy, nor love, nor light,',
-    //   'Nor certitude, nor peace, nor help for pain;',
-    //   'And we are here as on a darkling plain',
-    //   'Swept with confused alarms of struggle and flight,',
-    //   'Where ignorant armies clash by night.',
-    // ];
-    // setOriginalBookDataSource(titles);
-    // setFilteredBooks(titles);
   }, []);
   function filterBook(title: string) {
     const query = title.toLowerCase();
@@ -79,8 +66,7 @@ export default function AddNoteScreen({navigation}) {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{flex: 1}}>
-      <SafeAreaView
-        style={{flex: 1, marginTop: 16, backgroundColor: 'rgb(238,238,238)'}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: colors.bg}}>
         <Header navigation={navigation} />
         <ScrollView
           ref={(sv) => {
@@ -90,37 +76,32 @@ export default function AddNoteScreen({navigation}) {
           <Text
             style={{
               ...getFont(Weight.regular, 12),
-              color: 'gray',
+              color: colors.subText,
               marginHorizontal: 16,
-              marginBottom: 8,
+              marginBottom: 12,
+              marginTop: 24,
               textAlign: 'center',
               paddingTop: 16,
               lineHeight: 20,
             }}>
-            <MaterialIcons
-              name="lightbulb-outline"
-              size={24}
-              style={{marginTop: 8}}
-            />
+            <MaterialIcons name="lightbulb-outline" size={24} />
             You can type with your voice by selecting the{'  '}
-            <FontAwesome name="microphone" size={24} style={{marginTop: 8}} />
+            <FontAwesome name="microphone" size={24} />
             {'  \n'}
             on your keyboard
           </Text>
           <View
             style={{
-              flexDirection: 'row',
-              backgroundColor: '#000000AA',
+              backgroundColor: colors.inputBg,
               padding: 16,
               marginHorizontal: 16,
-              borderRadius: 8,
+              borderRadius: 10,
               height: 160,
             }}>
             <TextInput
               style={{
-                color: 'white',
+                color: colors.mainButtonBg,
                 ...getFont(Weight.medium, 15),
-                flex: 1,
                 textTransform: 'capitalize',
               }}
               autoCapitalize="words"
@@ -129,13 +110,14 @@ export default function AddNoteScreen({navigation}) {
               onChangeText={setContent}
               multiline={true}
               placeholder="Note content"
-              placeholderTextColor="#ffffff44"
+              placeholderTextColor={colors.subText}
+              selectionColor={colors.subText}
             />
           </View>
           <Text
             style={{
               ...getFont(Weight.regular, 12),
-              color: 'gray',
+              color: colors.subText,
               marginHorizontal: 16,
               textAlign: 'center',
               marginTop: 24,
@@ -144,20 +126,18 @@ export default function AddNoteScreen({navigation}) {
           </Text>
           <View
             style={{
-              flexDirection: 'row',
-              backgroundColor: '#000000AA',
-              padding: 16,
+              backgroundColor: colors.inputBg,
               marginHorizontal: 16,
               marginTop: 8,
               borderRadius: 8,
-              height: 66,
-              alignItems: 'center',
             }}>
             <TextInput
               style={{
-                color: 'white',
+                paddingTop: 16,
+                paddingBottom: 16,
+                marginHorizontal: 16,
+                color: colors.mainText,
                 ...getFont(Weight.medium, 15),
-                flex: 1,
               }}
               value={book}
               autoCapitalize="words"
@@ -166,7 +146,8 @@ export default function AddNoteScreen({navigation}) {
               onFocus={onFocusBook}
               multiline={true}
               placeholder="Book title"
-              placeholderTextColor="#ffffff44"
+              placeholderTextColor={colors.subText}
+              selectionColor={colors.subText}
             />
           </View>
           {autocompleteVisible ? (
@@ -197,7 +178,7 @@ function Header({navigation}) {
         paddingHorizontal: 16,
       }}>
       <VectorButton
-        color="black"
+        color={colors.subText}
         style={{height: 44, width: 44}}
         Library={AntDesign}
         name="close"
@@ -208,7 +189,7 @@ function Header({navigation}) {
       <Text
         style={{
           ...getFont(Weight.bold, 17),
-          color: 'black',
+          color: colors.mainText,
           marginRight: 44,
         }}>
         New note

@@ -6,6 +6,7 @@ import LoginView from './LoginView';
 import auth from '@react-native-firebase/auth';
 import UserView from './UserView';
 import getUser from './getUserAPI';
+import colors from '@colors';
 
 export default function ProfileScreen() {
   const [user, setUser] = useState(null);
@@ -24,7 +25,7 @@ export default function ProfileScreen() {
   }, []);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: colors.bg}}>
       {user ? (
         <UserView user={user} />
       ) : (
@@ -43,11 +44,11 @@ function AppInfo() {
       <Text
         style={{
           ...getFont(Weight.regular, 14),
-          color: '#606060',
+          color: colors.subText,
           margin: 16,
         }}>
         Version 0.1 {'  '}
-        <Entypo name="info-with-circle" size={16} color="#606060" />
+        <Entypo name="info-with-circle" size={16} color={colors.subText} />
       </Text>
     </TouchableOpacity>
   );

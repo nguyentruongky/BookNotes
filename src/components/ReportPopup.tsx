@@ -191,8 +191,8 @@ function TagView({title, onPress}) {
         marginBottom: 8,
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: selected ? '#000000CA' : 'gray',
-        backgroundColor: selected ? '#000000CA' : 'white',
+        borderColor: selected ? '#121212' : 'gray',
+        backgroundColor: selected ? '#121212' : 'white',
       }}
     />
   );

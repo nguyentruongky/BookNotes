@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {Weight, getFont} from '@fonts';
+import colors from '@colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
@@ -126,7 +127,7 @@ export default function HomeScreen({navigation}) {
   }
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'rgb(238,238,238)'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.bg}}>
       <TopBar
         keyword={keyword}
         onKeywordChange={onKeywordChange}
@@ -154,7 +155,7 @@ export default function HomeScreen({navigation}) {
           name="add"
           onPress={onPressAddButton}
           style={{
-            backgroundColor: '#000000AA',
+            backgroundColor: colors.mainButtonBg,
             height: 66,
             width: 66,
             borderRadius: 33,
@@ -206,7 +207,7 @@ function TopBar({keyword, onKeywordChange, cancelSearching, onPressFilter}) {
         Library={Foundation}
         name="filter"
         size={30}
-        color="#000000AA"
+        color={colors.mainButtonBg}
         style={{marginLeft: 16, height: 36}}
         onPress={onPressFilter}
       />
@@ -233,7 +234,7 @@ function SearchBar({keyword, onKeywordChange, cancelSearching}) {
           flex: 1,
           flexDirection: 'row',
           alignItems: 'center',
-          backgroundColor: '#000000AA',
+          backgroundColor: colors.inputBg,
           paddingHorizontal: 16,
           borderRadius: 22,
         }}>
@@ -257,7 +258,7 @@ function SearchBar({keyword, onKeywordChange, cancelSearching}) {
         <TextButton
           onPress={onPressCancel}
           title="Cancel"
-          textStyle={{color: 'black'}}
+          textStyle={{color: colors.subText}}
           style={{marginLeft: 16}}
         />
       ) : null}
@@ -279,19 +280,19 @@ function FilterMenu({
           width: screenWidth,
           height: screenHeight,
           flex: 1,
-          backgroundColor: 'rgba(238,238,238, 0.5)',
+          backgroundColor: '#19191bDD',
           flexDirection: 'row',
         }}>
         <View style={{flex: 1}} />
         <View style={{marginTop: 110, marginRight: 20}}>
           <View
             style={{
-              backgroundColor: 'rgb(79,79,79)',
+              backgroundColor: colors.popupBg,
               borderRadius: 10,
               justifyContent: 'flex-start',
               alignItems: 'flex-start',
-              paddingHorizontal: 16,
-              paddingBottom: 16,
+              paddingHorizontal: 24,
+              paddingBottom: 24,
             }}>
             <FilterButton title="My notes" onPress={onPressMyNotes} />
             <FilterButton title="My bookmarks" onPress={onPressMyBookmarks} />
@@ -309,8 +310,8 @@ function FilterButton({title, onPress}) {
       title={title}
       textStyle={{
         ...getFont(Weight.medium, 15),
-        color: 'white',
-        marginTop: 16,
+        color: colors.subText,
+        marginTop: 24,
       }}
       onPress={onPress}
     />

@@ -19,6 +19,7 @@ module.exports = {
         alias: {
           '@src': './src',
           '@fonts': './src/assets/fonts/fonts',
+          '@colors': './src/assets/colors',
           '@images': './src/assets/images',
         },
       },

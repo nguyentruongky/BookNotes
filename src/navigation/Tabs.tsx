@@ -5,7 +5,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {Text, View} from 'react-native';
+import colors from '@colors';
 import ProfileScreen from '@src/screens/ProfileScreen/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
@@ -13,13 +13,13 @@ const tabOptions = {
   showLabel: false,
   style: {
     height: '10%',
-    backgroundColor: 'white',
+    backgroundColor: colors.bg,
   },
 };
 
 export default function Tabs() {
   function getIcon(screenName, focused) {
-    const tintColor = focused ? '#000000DD' : '#B8B8B8';
+    const tintColor = focused ? colors.mainButtonBg : colors.inactiveTab;
     const tabIcons = {
       HomeScreen: <Entypo name="home" size={30} color={tintColor} />,
       SearchScreen: <AntDesign name="search1" size={30} color={tintColor} />,

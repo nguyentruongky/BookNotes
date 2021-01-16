@@ -1,27 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Dimensions,
-  TextInput,
-  FlatList,
-  Keyboard,
-  TouchableOpacity,
-  Text,
-  Image,
-} from 'react-native';
+import React from 'react';
+import {View, TouchableOpacity, Text} from 'react-native';
 import {Weight, getFont} from '@fonts';
+import colors from '@colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import getNotes from '@src/screens/HomeScreen/getNotesAPI';
-import searchNotes from '@src/screens/HomeScreen/searchNotesAPI';
-import TextButton from '@src/components/TextButton';
-import Screen from '@src/components/Screen';
-import AddNoteScreen from '../AddNoteScreen/AddNoteScreen';
-import VectorButton from '@src/components/VectorButton';
-import ReportPopup from '@src/components/ReportPopup';
-import Note from '@src/models/Note';
 import {ScrollView} from 'react-native-gesture-handler';
 import User from '@src/models/User';
 import AsyncImage from '@src/components/AsyncImage';
@@ -32,9 +15,11 @@ export default function UserView({user}) {
     <ScrollView style={{flex: 1}}>
       <SafeAreaView>
         <PersonalView user={user} />
-        <View style={{height: 1, backgroundColor: '#D3D3D3', marginTop: 32}} />
+        <View
+          style={{height: 1, backgroundColor: colors.subText, marginTop: 32}}
+        />
         <NumberView user={user} />
-        <View style={{height: 1, backgroundColor: '#D3D3D3'}} />
+        <View style={{height: 1, backgroundColor: colors.subText}} />
         <MenuView />
       </SafeAreaView>
     </ScrollView>
@@ -57,16 +42,16 @@ function PersonalView({user}) {
           width: 88,
           borderRadius: 44,
           borderWidth: 2,
-          borderColor: '#00000011',
+          borderColor: colors.inputBg,
         }}
         source={{uri: data?.image}}
-        placeholderColor="#b3e5fc"
+        placeholderColor={colors.inputBg}
       />
       <View style={{marginHorizontal: 24}}>
         <Text
           style={{
             ...getFont(Weight.bold, 30),
-            color: '#000000DD',
+            color: colors.mainText,
           }}>
           {data?.userName}
         </Text>
@@ -74,7 +59,7 @@ function PersonalView({user}) {
           numberOfLines={1}
           style={{
             ...getFont(Weight.medium, 15),
-            color: 'gray',
+            color: colors.subText,
             marginTop: 6,
           }}>
           {data?.email}
@@ -95,34 +80,34 @@ function NumberView({user}) {
       <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
         <Text
           style={{
-            ...getFont(Weight.bold, 28),
-            color: '#000000DD',
+            ...getFont(Weight.bold, 32),
+            color: colors.mainText,
           }}>
           {data?.notes?.length}
         </Text>
         <Text
           style={{
             ...getFont(Weight.semiBold, 15),
-            color: '#606060',
+            color: colors.subText,
             marginTop: 8,
           }}>
           Notes
         </Text>
       </View>
-      <View style={{width: 1, backgroundColor: '#D3D3D3'}} />
+      <View style={{width: 1, backgroundColor: colors.subText}} />
 
       <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
         <Text
           style={{
-            ...getFont(Weight.bold, 28),
-            color: '#000000DD',
+            ...getFont(Weight.bold, 32),
+            color: colors.mainText,
           }}>
           {data?.bookmarks?.length}
         </Text>
         <Text
           style={{
             ...getFont(Weight.semiBold, 15),
-            color: '#606060',
+            color: colors.subText,
             marginTop: 8,
           }}>
           Bookmarks
@@ -149,14 +134,16 @@ function MenuView() {
         title="Your Bookmarks"
         iconLeft={4}
       />
-      <View style={{marginTop: 32, height: 1, backgroundColor: '#D3D3D3'}} />
+      <View
+        style={{marginTop: 32, height: 1, backgroundColor: colors.subText}}
+      />
 
       <MenuItem
         IconLibrary={Ionicons}
         iconName="log-out-outline"
         title="Log out"
         iconLeft={4}
-        color="rgb(252,47,77)"
+        color={colors.danger}
         onPress={onPressLogout}
       />
     </View>
@@ -168,7 +155,7 @@ function MenuItem({
   iconName,
   iconLeft = 0,
   title,
-  color = '#000000DD',
+  color = colors.subText,
   onPress,
 }) {
   return (
