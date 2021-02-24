@@ -15,7 +15,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import VectorButton from '@src/components/VectorButton';
 import MainButton from '@src/components/MainButton';
 import addNoteAPI from './addNoteAPI';
-import getBooksTitle from './getBooksTitleAPI';
+import getBooksAPI from './getBooksAPI';
 import AutocompleteView from './AutocompleteView';
 
 export default function AddNoteScreen({navigation}) {
@@ -27,7 +27,7 @@ export default function AddNoteScreen({navigation}) {
   const [filteredBooks, setFilteredBooks] = useState(originalBookDataSource);
   let scrollView: ScrollView;
   useEffect(() => {
-    getBooksTitle((titles: any[]) => {
+    getBooksAPI((titles: any[]) => {
       setOriginalBookDataSource(titles);
       setFilteredBooks(titles);
     });
@@ -50,7 +50,6 @@ export default function AddNoteScreen({navigation}) {
 
   function onFocusBook() {
     setAutocompleteVisible(true);
-    console.log('scrollView::', scrollView);
     scrollView?.scrollToEnd({animated: true});
   }
 

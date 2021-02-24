@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text, SafeAreaView, Vibration} from 'react-native';
 import {Weight, getFont, colors} from '@src/assets/theme';
 import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -23,6 +23,7 @@ export default function NoteCell({data, onReport}) {
   const refRBSheet = useRef();
 
   function onLongPress() {
+    Vibration.vibrate();
     refRBSheet.current.open();
   }
 
@@ -44,7 +45,7 @@ export default function NoteCell({data, onReport}) {
           backgroundColor: colors.bubble,
         }}>
         <TouchableWithoutFeedback
-          delayLongPress={0}
+          delayLongPress={500}
           delayPressIn={0}
           onLongPress={onLongPress}>
           <Text style={{...getFont(Weight.bold, 15), color: colors.mainText}}>

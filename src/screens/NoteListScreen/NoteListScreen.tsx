@@ -1,47 +1,52 @@
 import React, {useEffect, useState} from 'react';
-import {View, Dimensions, FlatList, StatusBar} from 'react-native';
+import {
+  View,
+  Dimensions,
+  FlatList,
+  StatusBar,
+  ActivityIndicator,
+} from 'react-native';
 import {colors} from '@src/assets/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import NoteCell from './NoteCell';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import getNotes from '@src/screens/NoteListScreen/getNotesAPI';
 import searchNotes from '@src/screens/NoteListScreen/searchNotesAPI';
-import Screen from '@src/components/Screen';
-import AddNoteScreen from '../AddNoteScreen/AddNoteScreen';
 import VectorButton from '@src/components/VectorButton';
+import ReportPopup from '@src/components/ReportPopup';
+import Note from '@src/models/Note';
 import {LoginPopup} from '../ProfileScreen/LoginView';
 import auth from '@react-native-firebase/auth';
-import {TopBar} from './HomeComponents';
-import BookCell from './BookCell';
-import getBooks from '../AddNoteScreen/getBooksAPI';
-import ID from '@src/utils/ID';
-import NoteListScreen from '../NoteListScreen/NoteListScreen';
-import Book from '@src/models/Book';
+import getUserNotes from './getUserNotesAPI';
+import getMyBookmarks from '../../common/getMyBookmarksAPI';
+import {TopBar, FilterMenu} from './NoteListComponents';
 
 const isPresentation = true;
-export const HomeScreenRoute = [
-  Screen(NoteListScreen),
-  Screen(AddNoteScreen, isPresentation),
-];
 const {width: screenWidth, height: screenHeight} = Dimensions.get('screen');
 
+enum FilterType {
+  MY_BOOKMARKS,
+  MY_NOTES,
+  ALL_NOTES,
+}
+
 let timeout: NodeJS.Timeout;
-export default function HomeScreen({navigation}) {
-  const [books, setBooks] = useState([]);
+let filterType = FilterType.ALL_NOTES;
+export default function NoteListScreen({navigation, route}) {
+  const {bookId} = route.params;
+  const [notes, setNotes] = useState([]);
+  const [selectedNote, setSelectedNote] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [reportVisible, setReportVisible] = useState(false);
+  const [filterVisible, setFilterVisible] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
   const [keyword, setKeyword] = useState('');
   let searchTerm = '';
 
   useEffect(() => {
-    getBooks((books: any[]) => {
-      let dataSource = books;
-      let i = 10;
-      if (books.length < 10) {
-        dataSource.push('ad');
-      }
-      while (i < books.length) {
-        dataSource.push('ad');
-        i += 10;
-      }
-      setBooks(dataSource);
+    getNotes(bookId, (notes: any[]) => {
+      setIsLoading(false);
+      setNotes(notes);
     });
   }, []);
 
@@ -54,12 +59,13 @@ export default function HomeScreen({navigation}) {
   function initTimeout() {
     timeout = setTimeout(function () {
       searchNotes(searchTerm, (notes: []) => {
-        setBooks(notes);
+        setNotes(notes);
       });
     }, 500);
   }
   function cancelSearching() {
     setKeyword('');
+    getNotes(bookId, (notes: any[]) => setNotes(notes));
   }
 
   async function onPressAddButton() {
@@ -78,35 +84,22 @@ export default function HomeScreen({navigation}) {
     }
   }
 
-  function onPressCell(data: any) {
-    if (data === 'ad') {
-      return;
-    }
-
-    const book = data as Book;
-    navigation.push('NoteListScreen', {bookId: book.id});
+  function onReport(note: Note) {
+    setSelectedNote(note);
+    setReportVisible(true);
   }
 
-  function renderItem(data: any) {
-    if (data === 'ad') {
-      return (
-        <View
-          key={ID()}
-          style={{
-            height: 40,
-            backgroundColor: 'green',
-            marginTop: 16,
-            marginHorizontal: 16,
-          }}
-        />
-      );
-    }
+  if (isLoading) {
     return (
-      <BookCell
-        key={data.id}
-        data={data}
-        onPressCell={() => onPressCell(data)}
-      />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: colors.bg,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <ActivityIndicator style={{}} />
+      </SafeAreaView>
     );
   }
 
@@ -117,11 +110,14 @@ export default function HomeScreen({navigation}) {
         keyword={keyword}
         onKeywordChange={onKeywordChange}
         cancelSearching={cancelSearching}
-        onPressFilter={null}
+        onPressFilter={() => setFilterVisible(true)}
+        onPressBack={() => navigation.pop()}
       />
       <FlatList
-        data={books}
-        renderItem={(item) => renderItem(item.item)}
+        data={notes}
+        renderItem={(item) => (
+          <NoteCell data={item.item} onReport={() => onReport(item.item)} />
+        )}
         keyExtractor={(item) => item.id}
       />
 
@@ -145,6 +141,12 @@ export default function HomeScreen({navigation}) {
           }}
         />
       </View>
+
+      <ReportPopup
+        note={selectedNote}
+        visible={reportVisible}
+        setVisible={setReportVisible}
+      />
 
       <LoginPopup
         visible={loginVisible}

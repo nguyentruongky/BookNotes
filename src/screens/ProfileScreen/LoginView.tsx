@@ -34,7 +34,6 @@ export default function LoginView({loginCallback = null}) {
         }
 
         const user = loginResult.user;
-        console.log('user::', user);
         saveUser(user.displayName, uid, user.email, user.photoURL);
       })
       .catch((error) => {
@@ -88,7 +87,7 @@ export function LoginPopup({visible, setVisible, loginCallback}) {
       onTouchOutside={() => {
         setVisible(false);
       }}>
-      <ModalContent style={{margin: 16}}>
+      <ModalContent style={{backgroundColor: colors.popupBg}}>
         <LoginView loginCallback={loginCallback} />
       </ModalContent>
     </Modal>

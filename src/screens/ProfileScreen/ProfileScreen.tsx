@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {View, TouchableOpacity, Text, StatusBar} from 'react-native';
 import {Weight, getFont, colors} from '@src/assets/theme';
 import Entypo from 'react-native-vector-icons/Entypo';
 import LoginView from './LoginView';
@@ -25,6 +25,7 @@ export default function ProfileScreen() {
 
   return (
     <View style={{flex: 1, backgroundColor: colors.bg}}>
+      <StatusBar barStyle="light-content" />
       {user ? (
         <UserView user={user} />
       ) : (

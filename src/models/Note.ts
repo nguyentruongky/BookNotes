@@ -12,6 +12,7 @@ export default class Note {
   isBookmarkedByMe: boolean = false;
   isReportedByMe: boolean = false;
   shouldHidden: boolean = false;
+  createdAt: number = 0;
 
   constructor(raw: any) {
     this.id = raw.id ?? ID();
@@ -26,6 +27,7 @@ export default class Note {
     const reportedBy = Object.keys(raw.reported ?? {});
     this.isReportedByMe = reportedBy.includes(userId);
     this.shouldHidden = (raw.reportedCount ?? 0) > 5;
+    this.createdAt = Date.now();
   }
 
   static init(content: string, book: string) {
