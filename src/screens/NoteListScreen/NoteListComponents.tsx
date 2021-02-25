@@ -5,6 +5,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   Dimensions,
+  Text,
 } from 'react-native';
 import {Weight, getFont, colors} from '@src/assets/theme';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -16,6 +17,7 @@ import VectorButton from '@src/components/VectorButton';
 const {width: screenWidth, height: screenHeight} = Dimensions.get('screen');
 
 export function TopBar({
+  title,
   keyword,
   onKeywordChange,
   cancelSearching,
@@ -39,11 +41,22 @@ export function TopBar({
         style={{marginLeft: 16, height: 36}}
         onPress={onPressBack}
       />
-      <SearchBar
+      <Text
+        style={{
+          flex: 1,
+          maxWidth: screenWidth - 66,
+          marginRight: 44,
+          ...getFont(Weight.bold, 20),
+          color: colors.mainText,
+          textAlign: 'center',
+        }}>
+        {title}
+      </Text>
+      {/* <SearchBar
         keyword={keyword}
         onKeywordChange={onKeywordChange}
         cancelSearching={cancelSearching}
-      />
+      /> */}
     </View>
   );
 }

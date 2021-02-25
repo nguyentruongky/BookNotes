@@ -5,6 +5,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   Dimensions,
+  Text,
 } from 'react-native';
 import {Weight, getFont, colors} from '@src/assets/theme';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -29,11 +30,19 @@ export function TopBar({
         flexDirection: 'row',
         alignItems: 'center',
       }}>
-      <SearchBar
+      <Text
+        style={{
+          ...getFont(Weight.bold, 20),
+          color: colors.mainText,
+          textAlign: 'center',
+        }}>
+        Public Books
+      </Text>
+      {/* <SearchBar
         keyword={keyword}
         onKeywordChange={onKeywordChange}
         cancelSearching={cancelSearching}
-      />
+      /> */}
     </View>
   );
 }

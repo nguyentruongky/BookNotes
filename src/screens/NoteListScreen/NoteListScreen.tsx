@@ -16,30 +16,28 @@ import VectorButton from '@src/components/VectorButton';
 import ReportPopup from '@src/components/ReportPopup';
 import Note from '@src/models/Note';
 import {LoginPopup} from '../ProfileScreen/LoginView';
-import auth from '@react-native-firebase/auth';
-import getUserNotes from './getUserNotesAPI';
-import getMyBookmarks from '../../common/getMyBookmarksAPI';
-import {TopBar, FilterMenu} from './NoteListComponents';
+import {TopBar} from './NoteListComponents';
+import {authUser} from '@src/common/auth';
 
-const isPresentation = true;
 const {width: screenWidth, height: screenHeight} = Dimensions.get('screen');
 
-enum FilterType {
-  MY_BOOKMARKS,
-  MY_NOTES,
-  ALL_NOTES,
+enum LoginPurpose {
+  ADD_NOTE,
+  BOOKMARK,
 }
 
 let timeout: NodeJS.Timeout;
-let filterType = FilterType.ALL_NOTES;
+let loginFinishAction: any;
+
 export default function NoteListScreen({navigation, route}) {
-  const {bookId} = route.params;
+  const {bookId, bookTitle} = route.params;
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [reportVisible, setReportVisible] = useState(false);
-  const [filterVisible, setFilterVisible] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
+
+  // not used for now
   const [keyword, setKeyword] = useState('');
   let searchTerm = '';
 
@@ -69,10 +67,11 @@ export default function NoteListScreen({navigation, route}) {
   }
 
   async function onPressAddButton() {
-    const userId = auth().currentUser?.uid;
+    const userId = authUser().currentUser?.uid;
     if (userId) {
       navigation.push('AddNoteScreen');
     } else {
+      loginFinishAction = () => navigation.push('AddNoteScreen');
       setLoginVisible(!loginVisible);
     }
   }
@@ -80,7 +79,10 @@ export default function NoteListScreen({navigation, route}) {
   function loginCallback(id: string) {
     if (id) {
       setLoginVisible(!loginVisible);
-      navigation.push('AddNoteScreen');
+      console.log('loginFinishAction', loginFinishAction);
+      if (loginFinishAction) {
+        loginFinishAction();
+      }
     }
   }
 
@@ -107,16 +109,21 @@ export default function NoteListScreen({navigation, route}) {
     <SafeAreaView style={{flex: 1, backgroundColor: colors.bg}}>
       <StatusBar barStyle="light-content" />
       <TopBar
+        title={bookTitle}
         keyword={keyword}
         onKeywordChange={onKeywordChange}
         cancelSearching={cancelSearching}
-        onPressFilter={() => setFilterVisible(true)}
+        onPressFilter={null}
         onPressBack={() => navigation.pop()}
       />
       <FlatList
         data={notes}
         renderItem={(item) => (
-          <NoteCell data={item.item} onReport={() => onReport(item.item)} />
+          <NoteCell
+            data={item.item}
+            showLogin={() => setLoginVisible(true)}
+            onReport={() => onReport(item.item)}
+          />
         )}
         keyExtractor={(item) => item.id}
       />
@@ -124,7 +131,7 @@ export default function NoteListScreen({navigation, route}) {
       <View
         style={{
           position: 'absolute',
-          top: screenHeight - 180,
+          top: screenHeight - 140,
           left: screenWidth - 82,
         }}>
         <VectorButton

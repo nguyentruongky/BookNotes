@@ -109,7 +109,7 @@ export default function HomeScreen({navigation}) {
     }
 
     const book = data as Book;
-    navigation.push('NoteListScreen', {bookId: book.id});
+    navigation.push('NoteListScreen', {bookId: book.id, bookTitle: book.title});
   }
 
   function renderItem(data: any) {
@@ -146,26 +146,22 @@ export default function HomeScreen({navigation}) {
         />
       )}
 
-      <View
+      <VectorButton
+        Library={Ionicons}
+        color="white"
+        size={36}
+        name="add"
+        onPress={onPressAddButton}
         style={{
+          backgroundColor: colors.mainButtonBg,
+          height: 66,
+          width: 66,
+          borderRadius: 33,
           position: 'absolute',
-          top: screenHeight - 180,
+          top: screenHeight - 200,
           left: screenWidth - 82,
-        }}>
-        <VectorButton
-          Library={Ionicons}
-          color="white"
-          size={36}
-          name="add"
-          onPress={onPressAddButton}
-          style={{
-            backgroundColor: colors.mainButtonBg,
-            height: 66,
-            width: 66,
-            borderRadius: 33,
-          }}
-        />
-      </View>
+        }}
+      />
 
       <LoginPopup
         visible={loginVisible}

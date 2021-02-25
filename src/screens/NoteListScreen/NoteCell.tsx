@@ -11,8 +11,10 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import Note from '@src/models/Note';
 import VectorButton from '@src/components/VectorButton';
 import bookmarkStore from '@src/common/bookmarkStore';
+import {authUser} from '@src/common/auth';
+import {appConfig} from '@src/config/appConfig';
 
-export default function NoteCell({data, onReport}) {
+export default function NoteCell({data, showLogin, onReport}) {
   const note = data as Note;
   if (note === undefined) {
     return <View />;
@@ -28,9 +30,15 @@ export default function NoteCell({data, onReport}) {
   }
 
   function onPressBookmark() {
-    const noteId = note.id;
-    bookmarkStore.toggleBookmark(noteId);
-    setIsBookmarked(!isBookmarked);
+    const userId = authUser().currentUser?.uid;
+    if (userId) {
+      const noteId = note.id;
+      bookmarkStore.toggleBookmark(noteId);
+      setIsBookmarked(!isBookmarked);
+      appConfig.needUpdateProfile = true;
+    } else {
+      showLogin();
+    }
   }
 
   return (

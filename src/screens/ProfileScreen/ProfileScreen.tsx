@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, TouchableOpacity, Text, StatusBar} from 'react-native';
 import {Weight, getFont, colors} from '@src/assets/theme';
 import Entypo from 'react-native-vector-icons/Entypo';
 import LoginView from './LoginView';
-import auth from '@react-native-firebase/auth';
 import UserView from './UserView';
 import getUser from './getUserAPI';
+import {authUser} from '@src/common/auth';
+import {useFocusEffect} from '@react-navigation/native';
+import {appConfig} from '@src/config/appConfig';
 
 export default function ProfileScreen() {
   const [user, setUser] = useState(null);
@@ -18,8 +20,20 @@ export default function ProfileScreen() {
     }
   }
 
+  useFocusEffect(
+    useCallback(() => {
+      if (appConfig.needUpdateProfile) {
+        const userId = user?.uid ?? authUser().currentUser?.uid;
+        getUser(userId, (myAccount) => {
+          setUser(myAccount);
+        });
+      }
+      appConfig.needUpdateProfile = false;
+    }, []),
+  );
+
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    const subscriber = authUser().onAuthStateChanged(onAuthStateChanged);
     return subscriber;
   }, []);
 

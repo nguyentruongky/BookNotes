@@ -1,5 +1,5 @@
+import {authUser} from '@src/common/auth';
 import bookmarkStore from '@src/common/bookmarkStore';
-import auth from '@react-native-firebase/auth';
 import ID from '@src/utils/ID';
 import Book from './Book';
 
@@ -25,7 +25,7 @@ export default class Note {
 
     this.isBookmarkedByMe = bookmarkStore.exist(this.id);
 
-    const userId = auth().currentUser?.uid ?? '';
+    const userId = authUser().currentUser?.uid ?? '';
     const reportedBy = Object.keys(raw.reported ?? {});
     this.isReportedByMe = reportedBy.includes(userId);
     this.shouldHidden = (raw.reportedCount ?? 0) > 5;

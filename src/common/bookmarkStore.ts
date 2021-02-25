@@ -1,12 +1,12 @@
 import User from '@src/models/User';
-import auth from '@react-native-firebase/auth';
 import getUser from '@src/screens/ProfileScreen/getUserAPI';
 import addBookmark from './addBookmarkAPI';
+import {authUser} from './auth';
 import removeBookmark from './removeBookmarkAPI';
 
 class BookmarkStore {
   currentUser: User;
-  userId = auth().currentUser?.uid;
+  userId = authUser().currentUser?.uid;
   constructor() {
     console.log('Create bookmarkstore');
   }

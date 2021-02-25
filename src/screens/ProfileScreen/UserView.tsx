@@ -7,7 +7,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
 import User from '@src/models/User';
 import AsyncImage from '@src/components/AsyncImage';
-import auth from '@react-native-firebase/auth';
+import {authUser} from '@src/common/auth';
 
 export default function UserView({user}) {
   return (
@@ -19,7 +19,7 @@ export default function UserView({user}) {
         />
         <NumberView user={user} />
         <View style={{height: 1, backgroundColor: colors.line}} />
-        <MenuView />
+        {/* <MenuView /> */}
       </SafeAreaView>
     </ScrollView>
   );
@@ -119,16 +119,18 @@ function NumberView({user}) {
 
 function MenuView() {
   function onPressLogout() {
-    auth().signOut();
+    authUser().signOut();
   }
   return (
     <View>
       <MenuItem
+        onPress={null}
         IconLibrary={Ionicons}
         title="Your Notes"
         iconName="ios-document-text-outline"
       />
       <MenuItem
+        onPress={null}
         IconLibrary={FontAwesome}
         iconName="bookmark"
         title="Your Bookmarks"

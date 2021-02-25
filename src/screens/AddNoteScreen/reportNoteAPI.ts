@@ -1,5 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
+import {authUser} from '@src/common/auth';
 import ID from '@src/utils/ID';
 
 export default async function reportNote(
@@ -7,7 +7,7 @@ export default async function reportNote(
   reasons: string[],
   onSuccess: () => void,
 ) {
-  const userId = auth().currentUser?.uid ?? ID();
+  const userId = authUser().currentUser?.uid ?? ID();
   const reportData = {
     createdAt: new Date().getTime(),
     reasons: reasons,
