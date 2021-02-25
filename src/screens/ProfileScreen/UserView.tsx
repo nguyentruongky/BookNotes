@@ -46,8 +46,9 @@ function PersonalView({user}) {
         source={{uri: data?.image}}
         placeholderColor={colors.inputBg}
       />
-      <View style={{marginHorizontal: 24}}>
+      <View style={{marginHorizontal: 24, flex: 1}}>
         <Text
+          numberOfLines={1}
           style={{
             ...getFont(Weight.bold, 30),
             color: colors.mainText,

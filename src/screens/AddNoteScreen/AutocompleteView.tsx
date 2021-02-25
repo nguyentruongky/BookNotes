@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {Weight, getFont, colors} from '@src/assets/theme';
+import Book from '@src/models/Book';
 
 export default function AutocompleteView({dataSource, onSelectItem}) {
   return (
@@ -17,7 +18,11 @@ export default function AutocompleteView({dataSource, onSelectItem}) {
       ListFooterComponent={<View style={{height: 16}} />}
       data={dataSource}
       renderItem={(item) => (
-        <AutocompleteCell item={item} onPress={onSelectItem} />
+        <AutocompleteCell
+          key={item.item.id}
+          item={item.item}
+          onPress={() => onSelectItem(item.item)}
+        />
       )}
       keyExtractor={(item) => item}
     />
@@ -25,8 +30,9 @@ export default function AutocompleteView({dataSource, onSelectItem}) {
 }
 
 function AutocompleteCell({item, onPress}) {
+  const book = item as Book;
   return (
-    <TouchableOpacity onPress={() => onPress(item.item)}>
+    <TouchableOpacity onPress={() => onPress(book)}>
       <Text
         style={{
           ...getFont(Weight.medium, 14),
@@ -34,7 +40,7 @@ function AutocompleteCell({item, onPress}) {
           marginTop: 16,
           textTransform: 'capitalize',
         }}>
-        {item.item}
+        {book.title}
       </Text>
     </TouchableOpacity>
   );

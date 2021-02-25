@@ -771,6 +771,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@invertase/react-native-apple-authentication@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@invertase/react-native-apple-authentication/-/react-native-apple-authentication-2.1.0.tgz#ae58fe8cafa17272e363cbc68f342b9aefd6414c"
+  integrity sha512-9F4aZVS2wpwZS81zi6I4R3OEctrpDUjDfJaJRHaedQ9d3DQjsbFNpKN2eKUMLnJoY2hweE2dRdgwXrJaNaEZ+g==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -1168,6 +1173,11 @@
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
   integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
+
+"@react-native-firebase/admob@^10.8.1":
+  version "10.8.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/admob/-/admob-10.8.1.tgz#177c7aa3ce19224e9f2cf4a686491711b81b334a"
+  integrity sha512-CL6MFBdcThgjqVnwyNRigs7c/UjJrdNgMHoMPP3mOPje8BOGJM0HAu5t/k3BjPRWJE/OigzxziNim2oJGF3FrQ==
 
 "@react-native-firebase/app@^10.4.0":
   version "10.4.0"

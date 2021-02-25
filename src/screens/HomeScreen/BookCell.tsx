@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text, SafeAreaView, Dimensions} from 'react-native';
 import {Weight, getFont, colors} from '@src/assets/theme';
 import {
   TouchableOpacity,
@@ -7,6 +7,8 @@ import {
 } from 'react-native-gesture-handler';
 import Note from '@src/models/Note';
 import Book from '@src/models/Book';
+
+const screenWidth = Dimensions.get('screen').width;
 
 export default function BookCell({data, onPressCell}) {
   const book = data as Book;
@@ -30,10 +32,15 @@ export default function BookCell({data, onPressCell}) {
           <View
             style={{
               flexDirection: 'row',
-              alignItems: 'center',
+              alignItems: 'flex-start',
               justifyContent: 'space-between',
             }}>
-            <Text style={{...getFont(Weight.bold, 17), color: colors.mainText}}>
+            <Text
+              style={{
+                ...getFont(Weight.bold, 17),
+                maxWidth: screenWidth * 0.6,
+                color: colors.mainText,
+              }}>
               {book?.title}
             </Text>
 

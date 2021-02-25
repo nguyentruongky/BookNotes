@@ -1,5 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {View, Dimensions, FlatList, StatusBar} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  View,
+  Dimensions,
+  FlatList,
+  StatusBar,
+  ActivityIndicator,
+} from 'react-native';
 import {colors} from '@src/assets/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -15,6 +21,9 @@ import getBooks from '../AddNoteScreen/getBooksAPI';
 import ID from '@src/utils/ID';
 import NoteListScreen from '../NoteListScreen/NoteListScreen';
 import Book from '@src/models/Book';
+import {appConfig} from '@src/config/appConfig';
+import {useFocusEffect} from '@react-navigation/native';
+import AdView from '@src/components/AdView';
 
 const isPresentation = true;
 export const HomeScreenRoute = [
@@ -26,24 +35,40 @@ const {width: screenWidth, height: screenHeight} = Dimensions.get('screen');
 let timeout: NodeJS.Timeout;
 export default function HomeScreen({navigation}) {
   const [books, setBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [loginVisible, setLoginVisible] = useState(false);
   const [keyword, setKeyword] = useState('');
   let searchTerm = '';
 
+  useFocusEffect(
+    useCallback(() => {
+      if (appConfig.needUpdateHome) {
+        fetchBooks();
+      }
+      appConfig.needUpdateHome = false;
+    }, []),
+  );
+
   useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  function fetchBooks() {
     getBooks((books: any[]) => {
       let dataSource = books;
-      let i = 10;
-      if (books.length < 10) {
-        dataSource.push('ad');
-      }
-      while (i < books.length) {
-        dataSource.push('ad');
-        i += 10;
-      }
+      // let i = 10;
+      // if (books.length < 10) {
+      //   dataSource.push('ad');
+      // }
+      // while (i < books.length) {
+      //   dataSource.push('ad');
+      //   i += 10;
+      // }
       setBooks(dataSource);
+      console.log('datasource::', dataSource);
+      setIsLoading(false);
     });
-  }, []);
+  }
 
   function onKeywordChange(keyword: string) {
     setKeyword(keyword);
@@ -89,17 +114,7 @@ export default function HomeScreen({navigation}) {
 
   function renderItem(data: any) {
     if (data === 'ad') {
-      return (
-        <View
-          key={ID()}
-          style={{
-            height: 40,
-            backgroundColor: 'green',
-            marginTop: 16,
-            marginHorizontal: 16,
-          }}
-        />
-      );
+      return <AdView />;
     }
     return (
       <BookCell
@@ -119,11 +134,17 @@ export default function HomeScreen({navigation}) {
         cancelSearching={cancelSearching}
         onPressFilter={null}
       />
-      <FlatList
-        data={books}
-        renderItem={(item) => renderItem(item.item)}
-        keyExtractor={(item) => item.id}
-      />
+      {isLoading ? (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <ActivityIndicator />
+        </View>
+      ) : (
+        <FlatList
+          data={books}
+          renderItem={(item) => renderItem(item.item)}
+          keyExtractor={(item) => item.id}
+        />
+      )}
 
       <View
         style={{

@@ -10,8 +10,8 @@ import getUser from './getUserAPI';
 export default function ProfileScreen() {
   const [user, setUser] = useState(null);
   function onAuthStateChanged(user) {
+    setUser(user);
     if (user) {
-      setUser(user);
       getUser(user.uid, (myAccount) => {
         setUser(myAccount);
       });

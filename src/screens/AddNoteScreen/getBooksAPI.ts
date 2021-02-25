@@ -1,7 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import Book from '@src/models/Book';
 import ID from '@src/utils/ID';
-export default async function getBooksAPI(onSuccess: ([]) => void) {
+export default async function getBooks(onSuccess: ([]) => void) {
   firestore()
     .collection('books')
     .orderBy('updatedAt', 'desc')

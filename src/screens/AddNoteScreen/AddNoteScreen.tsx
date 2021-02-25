@@ -15,37 +15,43 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import VectorButton from '@src/components/VectorButton';
 import MainButton from '@src/components/MainButton';
 import addNoteAPI from './addNoteAPI';
-import getBooksAPI from './getBooksAPI';
+import getBooks from './getBooksAPI';
 import AutocompleteView from './AutocompleteView';
+import Book from '@src/models/Book';
+import {appConfig} from '@src/config/appConfig';
 
 export default function AddNoteScreen({navigation}) {
   const [isSaving, setIsSaving] = useState(false);
   const [content, setContent] = useState('');
-  const [book, setBook] = useState('');
+  const [bookTitle, setBookTitle] = useState('');
+  const [selectedBook, setSelectedBook] = useState(new Book({}));
   const [autocompleteVisible, setAutocompleteVisible] = useState(false);
-  const [originalBookDataSource, setOriginalBookDataSource] = useState([]);
+  const [originalBookDataSource, setOriginalBookDataSource] = useState(
+    new Array<Book>(),
+  );
   const [filteredBooks, setFilteredBooks] = useState(originalBookDataSource);
   let scrollView: ScrollView;
   useEffect(() => {
-    getBooksAPI((titles: any[]) => {
-      setOriginalBookDataSource(titles);
-      setFilteredBooks(titles);
+    getBooks((books: Book[]) => {
+      setOriginalBookDataSource(books);
+      setFilteredBooks(books);
     });
   }, []);
   function filterBook(title: string) {
     const query = title.toLowerCase();
     let data = originalBookDataSource.filter((item) => {
-      return item.toLowerCase().includes(query);
+      return item.title.toLowerCase().includes(query);
     });
     if (data.length == 0) {
-      data.push(title);
+      const newBook = Book.init(title);
+      data.push(newBook);
     }
     setFilteredBooks(data);
   }
 
   function onChangeBookTitle(text: string) {
     filterBook(text);
-    setBook(text);
+    setBookTitle(text);
   }
 
   function onFocusBook() {
@@ -53,10 +59,17 @@ export default function AddNoteScreen({navigation}) {
     scrollView?.scrollToEnd({animated: true});
   }
 
+  function onSelectBook(selectedBook: Book) {
+    setSelectedBook(selectedBook);
+    setAutocompleteVisible(false);
+    setBookTitle(selectedBook.title);
+  }
+
   function onPressSaveButton() {
     setIsSaving(true);
-    addNoteAPI(content, book, () => {
+    addNoteAPI(content, selectedBook, () => {
       setIsSaving(false);
+      appConfig.needUpdateHome = true;
       navigation.pop();
     });
   }
@@ -98,12 +111,12 @@ export default function AddNoteScreen({navigation}) {
             }}>
             <TextInput
               style={{
-                color: colors.mainButtonBg,
+                flex: 1,
+                color: colors.mainText,
                 ...getFont(Weight.medium, 15),
-                textTransform: 'capitalize',
               }}
-              autoCapitalize="words"
-              autoCorrect={false}
+              autoCapitalize="sentences"
+              autoCorrect={true}
               value={content}
               onChangeText={setContent}
               multiline={true}
@@ -137,9 +150,9 @@ export default function AddNoteScreen({navigation}) {
                 color: colors.mainText,
                 ...getFont(Weight.medium, 15),
               }}
-              value={book}
+              value={bookTitle}
               autoCapitalize="words"
-              autoCorrect={false}
+              autoCorrect={true}
               onChangeText={onChangeBookTitle}
               onFocus={onFocusBook}
               multiline={true}
@@ -151,7 +164,7 @@ export default function AddNoteScreen({navigation}) {
           {autocompleteVisible ? (
             <AutocompleteView
               dataSource={filteredBooks}
-              onSelectItem={setBook}
+              onSelectItem={(selectedBook: Book) => onSelectBook(selectedBook)}
             />
           ) : null}
 

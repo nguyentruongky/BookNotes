@@ -1,9 +1,10 @@
 import firestore from '@react-native-firebase/firestore';
+import Book from '@src/models/Book';
 import Note from '@src/models/Note';
 
 export default async function addNoteAPI(
   content: string,
-  book: string,
+  book: Book,
   onSuccess: (note: Note) => void,
 ) {
   const note: Note = Note.init(content, book);
@@ -13,11 +14,6 @@ export default async function addNoteAPI(
     .set(note)
     .then(() => onSuccess(note));
 
-  const bookWords = book.toLocaleLowerCase().split(' ');
-  let bookTitle = bookWords.join('');
-  bookTitle = bookTitle.charAt(0).toUpperCase() + bookTitle.slice(1);
-  firestore().collection('books').doc(bookTitle).set({
-    title: book,
-    searchTerms: bookWords,
-  });
+  book.noteCount += 1;
+  firestore().collection('books').doc(book.id).set(book, {merge: true});
 }

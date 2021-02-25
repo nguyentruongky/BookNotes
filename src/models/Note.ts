@@ -1,12 +1,14 @@
 import bookmarkStore from '@src/common/bookmarkStore';
 import auth from '@react-native-firebase/auth';
 import ID from '@src/utils/ID';
+import Book from './Book';
 
 export default class Note {
   id: string;
   content: string;
   author: string;
   book: string;
+  bookId: string;
   bookmarkCount: number;
   searchTerms: string[];
   isBookmarkedByMe: boolean = false;
@@ -30,13 +32,15 @@ export default class Note {
     this.createdAt = Date.now();
   }
 
-  static init(content: string, book: string) {
+  static init(content: string, book: Book) {
     const note = new Note({});
     note.content = content;
-    note.book = book;
+    note.book = book.title;
+    note.bookId = book.id;
 
     const words = content.split(' ');
-    const bookWords = book.split(' ');
+    console.log('Book::', book);
+    const bookWords = book.title.split(' ');
     bookWords.forEach((word) => {
       words.push(word);
     });
